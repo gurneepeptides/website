@@ -1,18 +1,22 @@
 import React, { useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import products from "../products.json";
+import { normalizeCatalog } from "../catalog.js";
 
 const Placeholder = "/placeholder.svg";
 
 export default function CatalogPage() {
   const [q, setQ] = useState("");
 
-  // filter products by search query
+  // Normalize catalog once
+  const normalized = useMemo(() => normalizeCatalog(products), []);
+
+  // Filter by search query
   const filtered = useMemo(() => {
     const v = q.trim().toLowerCase();
-    if (!v) return products;
-    return products.filter((p) => p.name.toLowerCase().includes(v));
-  }, [q]);
+    if (!v) return normalized;
+    return normalized.filter((p) => p.name.toLowerCase().includes(v));
+  }, [q, normalized]);
 
   return (
     <div>
@@ -151,7 +155,7 @@ export default function CatalogPage() {
                       }}
                     >
                       <div style={{ color: "var(--sub)", fontSize: "12px" }}>
-                        {p.price || "Price on request"}
+                        {p.price ? `$${p.price}` : "Price on request"}
                       </div>
                       <div style={{ display: "flex", gap: "6px" }}>
                         {(p.tags || []).map((tag) => (

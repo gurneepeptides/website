@@ -5,27 +5,48 @@
     "dosage": "10 mg",
     "volume": "3 mL",
     "category": "GLP-Class",
-    "price": 40.55,
+    "price": 100,
     "image": "products/reta10mg.png",
     "tags": ["popular"],
     "options": [
-    { "id": "o1", "label": "3 Pack", "price": 95.97, "compareAt": 75.00, "badge": "BEST VALUE" },
-    { "id": "o2", "label": "2 Pack", "price": 27.18, "compareAt": 50.00, "badge": "MOST POPULAR" },
-    { "id": "o3", "label": "1 Pack", "price": 15.99 }
-  ],
-  
-"purchase": {
-  "headline": "How to Purchase",
-  "facebook": "https://facebook.com/gurneepeptides",
-  "email": "gurneepeptides@gmail.com",
-  "note": "Message us on Facebook to purchase. If unavailable, email us directly."
-},
+      {
+        "id": "o1",
+        "label": "3 Pack",
+        "price": 95.97,
+        "compareAt": 75.0,
+        "badge": "BEST VALUE"
+      },
+      {
+        "id": "o2",
+        "label": "2 Pack",
+        "price": 27.18,
+        "compareAt": 50.0,
+        "badge": "MOST POPULAR"
+      },
+      { "id": "o3", "label": "1 Pack", "price": 15.99 }
+    ],
 
-  "faq": [
-    { "q": "Is this product ready to ship?", "a": "Most items are in stock; we’ll confirm by email." },
-    { "q": "Do you offer bulk pricing?", "a": "Yes—include expected quantities in your email for a quote." },
-    { "q": "What is the storage guidance?", "a": "Store as indicated on the label/spec sheet. Catalog only—no usage guidance provided." }
-  ]
+    "purchase": {
+      "headline": "How to Purchase",
+      "facebook": "https://www.facebook.com/people/Gurnee-Peptides/61580797282365/#",
+      "email": "gurneepeptides@gmail.com",
+      "note": "Message us on Facebook to purchase. If unavailable, email us directly."
+    },
+
+    "faq": [
+      {
+        "q": "Is this product ready to ship?",
+        "a": "Most items are in stock; message us to secure yours."
+      },
+      {
+        "q": "Do you offer bulk pricing?",
+        "a": "Yes—include expected quantities in your message/email for a quote."
+      },
+      {
+        "q": "How does the purchase process work?",
+        "a": "Customers can message us on Facebook (preferred) or email us with the items they’d like to purchase. We will then send an invoice by email, and payment can be made securely using their preferred method. Orders placed before 3 PM ship the same day, with exceptions on weekends."
+      }
+    ]
   },
   {
     "id": "RET-15",
@@ -34,7 +55,7 @@
     "volume": "3 mL",
     "category": "GLP-Class",
     "price": null,
-    "image": null,
+    "image": "products/reta15mg.png",
     "tags": ["popular"]
   },
   {
@@ -44,7 +65,7 @@
     "volume": "3 mL",
     "category": "GLP-Class",
     "price": null,
-    "image": null,
+    "image": "products/reta20mg.png",
     "tags": ["popular"]
   },
   {
@@ -54,7 +75,7 @@
     "volume": "3 mL",
     "category": "GLP-Class",
     "price": null,
-    "image": null,
+    "image": "products/tirz10mg.png",
     "tags": ["new"]
   },
   {
@@ -64,7 +85,7 @@
     "volume": "3 mL",
     "category": "GLP-Class",
     "price": null,
-    "image": null,
+    "image": "products/tirz15mg.png",
     "tags": ["new"]
   },
   {
@@ -74,7 +95,7 @@
     "volume": "3 mL",
     "category": "GLP-Class",
     "price": null,
-    "image": null,
+    "image": "products/tirz20mg.png",
     "tags": ["new"]
   },
   {
@@ -84,7 +105,7 @@
     "volume": "3 mL",
     "category": "GLP-Class",
     "price": null,
-    "image": null,
+    "image": "products/tirz30mg.png",
     "tags": ["new"]
   },
   {
@@ -93,7 +114,7 @@
     "volume": "10 mL",
     "category": "Research Supplies",
     "price": null,
-    "image": null,
+    "image": "products/bac10.png",
     "tags": []
   },
   {
@@ -103,7 +124,7 @@
     "volume": "3 mL",
     "category": "Recovery",
     "price": null,
-    "image": null,
+    "image": "products/bpc5mg.png",
     "tags": []
   },
   {
@@ -113,7 +134,7 @@
     "volume": "3 mL",
     "category": "Recovery",
     "price": null,
-    "image": null,
+    "image": "products/bpc_tb5mg.png",
     "tags": ["combo"]
   },
   {
@@ -123,7 +144,38 @@
     "volume": "3 mL",
     "category": "Aesthetics",
     "price": null,
-    "image": null,
+    "image": "products/ghk50.png",
+    "tags": []
+  },
+  {
+    "id": "Tesa-10",
+    "name": "Tesamorelin 10mg",
+    "dosage": "10 mg",
+    "volume": "3 mL",
+    "category": "Aesthetics",
+    "price": null,
+    "image": "products/tesamorelin10.png",
+    "tags": []
+  },
+  {
+    "id": "Ipamorelin-5",
+    "name": "Ipamorelin 5mg",
+    "dosage": "5 mg",
+    "volume": "3 mL",
+    "category": "Aesthetics",
+    "price": null,
+    "image": "products/ipamorelin5.png",
+    "tags": []
+  },
+    {
+    "id": "HCG-5000",
+    "name": "HCG 5000iu",
+    "dosage": "5000 iu",
+    "volume": "3 mL",
+    "category": "Aesthetics",
+    "price": null,
+    "image": "products/hcg5000.png",
     "tags": []
   }
+  
 ]
