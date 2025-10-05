@@ -163,6 +163,176 @@
 }
 
 
+
+/* --- Mobile-first layout helpers --- */
+.page { padding: 16px 12px; }
+@media (min-width: 420px) { .page { padding: 18px 16px; } }
+.container-narrow { max-width: 980px; margin: 0 auto; }
+
+/* --- Product hero card --- */
+.hero-card {
+  margin-top: 12px;
+  background: linear-gradient(135deg,#0e1a2e,#12213a);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px;
+}
+@media (min-width: 768px) { .hero-card { padding: 20px; } }
+
+.hero-inner {
+  display: grid;
+  gap: 14px;                  /* mobile spacing */
+}
+@media (min-width: 768px) {
+  .hero-inner {
+    grid-template-columns: minmax(220px, 320px) 1fr; /* two columns on md+ */
+    gap: 22px;
+  }
+}
+
+.hero-image { display: grid; place-items: center; }
+.hero-image img {
+  width: 72vw;                /* scale relative to viewport on phones */
+  max-width: 360px;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,.35);
+}
+@media (min-width: 768px) { .hero-image img { width: 85%; } }
+
+.hero-title { margin: 0 0 6px 0; line-height: 1.2; font-size: 22px; }
+.hero-meta  { color: var(--sub); font-size: 13px; }
+@media (min-width: 768px) {
+  .hero-title { font-size: 26px; }
+  .hero-meta  { font-size: 14px; }
+}
+
+.hero-desc  { margin-top: 12px; font-size: 14px; }
+.hero-disc   {
+  margin-top: 12px; padding: 10px 12px; border-radius: 12px;
+  background: #13223a; color: #c7d2fe; font-size: 12.5px;
+}
+
+/* --- Options list (mobile-first) --- */
+.options { display: grid; gap: 10px; margin-top: 14px; }
+
+.option {
+  display: grid;
+  grid-template-columns: 56px 1fr auto; /* bigger thumb on phones */
+  align-items: center; gap: 12px;
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px;
+  cursor: pointer;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.option:hover { border-color: #274c7e; box-shadow: 0 10px 24px rgba(0,0,0,.28); }
+
+.option.selected {
+  background: linear-gradient(90deg, rgba(39,167,180,.32), rgba(39,167,180,.08));
+  border-color: var(--accent);
+  box-shadow: 0 16px 36px rgba(0,0,0,.35);
+}
+
+.option .thumb {
+  width: 56px; height: 56px; border-radius: 10px; overflow: hidden;
+  display: grid; place-items: center; background: #101c31; border: 1px solid #1d2e4e;
+}
+.option .thumb img { width: 85%; height: 85%; object-fit: contain; }
+
+.option .title { font-weight: 650; font-size: 14px; }
+.option .sub   { font-size: 12px; color: var(--sub); margin-top: 2px; }
+
+.option .right { display:flex; flex-direction:column; align-items:flex-end; gap:2px; }
+.option .price   { font-weight: 700; font-size: 15px; }
+.option .compare { font-size: 12px; color: var(--sub); text-decoration: line-through; }
+
+/* Hide compare-at on very tight screens to prevent wrap */
+@media (max-width: 340px) { .option .compare { display: none; } }
+
+/* --- CTA row --- */
+.cta-row { margin-top: 16px; display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+.cta-primary {
+  background: var(--accent); color: #0b1220; border: none;
+  padding: 10px 16px; border-radius: 12px; font-weight: 700;
+  cursor: not-allowed; opacity: .85;
+}
+.cta-note { color: var(--sub); font-size: 12px; }
+
+
+
+/* --- Purchase + FAQ sections --- */
+.section { margin-top: 18px; }
+.section-card {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 14px;
+}
+.section h3 { margin: 0 0 10px 0; font-size: 16px; }
+.steps { display: grid; gap: 8px; counter-reset: step; }
+.step {
+  display: grid; grid-template-columns: 26px 1fr; gap: 10px;
+  align-items: start;
+}
+.step::before {
+  counter-increment: step;
+  content: counter(step) ".";
+  width: 26px; height: 26px; line-height: 26px; text-align: center;
+  border-radius: 999px; background: #13223a; color: #c7d2fe; font-weight: 700;
+  border: 1px solid #21355a;
+}
+.note {
+  margin-top: 10px; font-size: 12.5px; color: var(--sub);
+  border-top: 1px dashed #21355a; padding-top: 10px;
+}
+
+/* FAQ: native details/summary for zero JS deps */
+.faq { display: grid; gap: 8px; }
+details.faq-item {
+  background: var(--panel); border: 1px solid var(--border);
+  border-radius: 12px; padding: 10px 12px;
+}
+details.faq-item[open] { border-color: #274c7e; }
+.faq-item summary {
+  cursor: pointer; list-style: none; outline: none; font-weight: 600;
+}
+.faq-item summary::-webkit-details-marker { display: none; }
+.faq-item .answer { color: var(--sub); margin-top: 8px; font-size: 14px; }
+
+
+
+/* Purchase instructions */
+.purchase-box {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px;
+  text-align: center;
+}
+.purchase-box h3 {
+  margin: 0 0 12px 0;
+  font-size: 18px;
+}
+.purchase-btn {
+  display: inline-block;
+  background: var(--accent);
+  color: #0b1220;
+  font-weight: 700;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 12px;
+  text-decoration: none;
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+.purchase-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,.35);
+}
+.purchase-note {
+  margin-top: 12px;
+  font-size: 13px;
+  color: var(--sub);
+}
+
 </style>
 
   </head>

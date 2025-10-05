@@ -4,33 +4,32 @@ import products from "../products.json";
 
 const Placeholder = "/placeholder.svg";
 
-/**
- * A product can optionally include an "options" array in products.json, e.g.:
- * "options": [
- *   { "id":"o1","label":"3 Pack","price":35.97,"compareAt":75.00,"badge":"BEST VALUE" },
- *   { "id":"o2","label":"2 Pack","price":27.18,"compareAt":50.00,"badge":"MOST POPULAR" },
- *   { "id":"o3","label":"1 Pack","price":15.99 }
- * ]
- */
+
+
+function resolveImg(src) {
+  if (!src) return Placeholder;
+  // external URL? leave it
+  if (/^https?:\/\//i.test(src)) return src;
+  // already root-relative? keep it
+  if (src.startsWith("/")) return src;
+  // make it root-relative (so it works on /product/:id too)
+  return `/${src}`;
+}
 
 export default function ProductPage() {
   const { id } = useParams();
   const product = useMemo(() => products.find((p) => p.id === id), [id]);
 
-  // graceful 404
   if (!product) {
     return (
-      <div style={{ maxWidth: "800px", margin: "0 auto", padding: "24px" }}>
+      <div className="page container-narrow">
         <h2>Product not found</h2>
-        <p style={{ color: "var(--sub)" }}>
-          The item you’re looking for doesn’t exist in the catalog.
-        </p>
+        <p style={{ color: "var(--sub)" }}>The item you’re looking for isn’t in the catalog.</p>
         <Link to="/" style={{ color: "var(--accent)" }}>← Back to catalog</Link>
       </div>
     );
   }
 
-  // Use options from JSON or fallback demo options
   const fallbackOptions = [
     { id: "opt-3", label: "3 Pack", price: 35.97, compareAt: 75.0, badge: "BEST VALUE" },
     { id: "opt-2", label: "2 Pack", price: 27.18, compareAt: 50.0, badge: "MOST POPULAR" },
@@ -43,7 +42,7 @@ export default function ProductPage() {
   const [selected, setSelected] = useState(options[0]?.id);
 
   return (
-    <div style={{ maxWidth: "980px", margin: "0 auto", padding: "24px 16px" }}>
+    <div className="page container-narrow">
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <Link to="/" style={{ color: "var(--accent)", textDecoration: "none" }}>← Back</Link>
         <span style={{ color: "var(--sub)", fontSize: 12 }}>
@@ -51,55 +50,33 @@ export default function ProductPage() {
         </span>
       </div>
 
-      {/* Top hero block */}
-      <section
-        style={{
-          marginTop: 16,
-          background: "linear-gradient(135deg,#0e1a2e,#12213a)",
-          border: "1px solid var(--border)",
-          borderRadius: 16,
-          padding: 20,
-          display: "grid",
-          gap: 20,
-          gridTemplateColumns: "minmax(240px, 320px) 1fr"
-        }}
-      >
-        <div style={{ display: "grid", placeItems: "center" }}>
-          <img
-            src={product.image || Placeholder}
-            alt={product.name}
-            style={{ width: "85%", maxWidth: 360, borderRadius: 12, boxShadow: "0 10px 30px rgba(0,0,0,.35)" }}
-          />
-        </div>
-
-        <div>
-          <h1 style={{ margin: "0 0 8px 0", lineHeight: 1.2 }}>{product.name}</h1>
-          <div style={{ color: "var(--sub)" }}>
-            {[product.dosage, product.volume].filter(Boolean).join(" • ") || "Specs forthcoming"}
+      {/* HERO (mobile stacks, desktop 2-column) */}
+      <section className="hero-card">
+        <div className="hero-inner">
+          <div className="hero-image">
+            <img src={resolveImg(product.image) || Placeholder} alt={product.name} />
           </div>
 
-          <p style={{ marginTop: 14, fontSize: 15 }}>
-            Add a short, elegant description here about research context, form, and storage.
-            Keep it simple and reassuring. You can edit this copy later per product.
-          </p>
+          <div>
+            <h1 className="hero-title">{product.name}</h1>
+            <div className="hero-meta">
+              {[product.dosage, product.volume].filter(Boolean).join(" • ") || "Specs forthcoming"}
+            </div>
 
-          <div
-            style={{
-              marginTop: 14,
-              padding: "10px 12px",
-              borderRadius: 12,
-              background: "#13223a",
-              color: "#c7d2fe",
-              fontSize: 13
-            }}
-          >
-            ⚠️ For Research Use Only • Not for Human Use • No medical benefit suggested.
+            <p className="hero-desc">
+              Add a short, elegant description here about research context, form, and storage.
+              Keep it simple and reassuring. You can edit this per product later.
+            </p>
+
+            <div className="hero-disc">
+              ⚠️ For Research Use Only • Not for Human Use • No medical benefit suggested.
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Options section */}
-      <section style={{ marginTop: 20 }}>
+      {/* OPTIONS */}
+      <section style={{ marginTop: 16 }}>
         <h3 style={{ margin: "0 0 8px 0" }}>1. Choose Your Quantity</h3>
         <div className="options">
           {options.map((opt) => {
@@ -110,12 +87,10 @@ export default function ProductPage() {
                 className={`option ${isSelected ? "selected" : ""}`}
                 onClick={() => setSelected(opt.id)}
               >
-                {/* left: thumb */}
                 <div className="thumb">
-                  <img src={product.image || Placeholder} alt="" />
+                  <img src={resolveImg(product.image) || Placeholder} alt="" />
                 </div>
 
-                {/* middle: labels */}
                 <div>
                   <div className="title">
                     {opt.label}
@@ -125,12 +100,9 @@ export default function ProductPage() {
                       </span>
                     )}
                   </div>
-                  <div className="sub">
-                    {product.name}
-                  </div>
+                  <div className="sub">{product.name}</div>
                 </div>
 
-                {/* right: price */}
                 <div className="right">
                   <div className="price">
                     {typeof opt.price === "number" ? `$${opt.price.toFixed(2)}` : "—"}
@@ -145,35 +117,55 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Placeholder CTA row (no checkout, just UI) */}
-      <section
-        style={{
-          marginTop: 20,
-          display: "flex",
-          gap: 10,
-          flexWrap: "wrap",
-          alignItems: "center"
-        }}
-      >
-        <button
-          type="button"
-          disabled
-          title="Catalog only"
-          style={{
-            background: "var(--accent)",
-            color: "#0b1220",
-            border: "none",
-            padding: "10px 16px",
-            borderRadius: 12,
-            fontWeight: 700,
-            cursor: "not-allowed",
-            opacity: .8
-          }}
-        >
-          Catalog Only (No Checkout)
-        </button>
-        <span style={{ color: "var(--sub)", fontSize: 12 }}>
-          Selected: {options.find(o => o.id === selected)?.label}
+
+    {/* === PURCHASE INSTRUCTIONS (if present) === */}
+{/* === PURCHASE INSTRUCTIONS === */}
+<section className="section">
+  <div className="purchase-box">
+    <h3>{product?.purchase?.headline || "How to Purchase"}</h3>
+
+    <a
+      href={product?.purchase?.facebook || "https://facebook.com/gurneepeptides"}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="purchase-btn"
+    >
+      Message Us to Purchase
+    </a>
+
+    <div className="purchase-note">
+      {product?.purchase?.note ||
+        "You can also email us at gurneepeptides@gmail.com"}
+    </div>
+  </div>
+</section>
+
+      {/* === FAQ (if present) === */}
+      <section className="section">
+        <h3 style={{ marginBottom: 8 }}>FAQs</h3>
+        <div className="faq">
+          {(Array.isArray(product.faq) && product.faq.length > 0
+            ? product.faq
+            : [
+                { q: "Is this product available?", a: "Most items are in stock; we’ll confirm by email." },
+                { q: "How do I place an order?", a: "Email us the product ID and quantity; we’ll reply with next steps." },
+                { q: "Do you offer bulk discounts?", a: "Yes—tell us your expected quantities for a quote." }
+              ]
+          ).map((item, idx) => (
+            <details key={idx} className="faq-item">
+              <summary>{item.q}</summary>
+              <div className="answer">{item.a}</div>
+            </details>
+          ))}
+        </div>
+      </section>
+
+
+      {/* CTA (informational only) */}
+      <section className="cta-row">
+        <button type="button" disabled className="cta-primary">Catalog Only (No Checkout)</button>
+        <span className="cta-note">
+          Selected: {options.find((o) => o.id === selected)?.label}
         </span>
       </section>
     </div>

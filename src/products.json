@@ -6,8 +6,26 @@
     "volume": "3 mL",
     "category": "GLP-Class",
     "price": 40.55,
-    "image": null,
-    "tags": ["popular"]
+    "image": "products/reta10mg.png",
+    "tags": ["popular"],
+    "options": [
+    { "id": "o1", "label": "3 Pack", "price": 95.97, "compareAt": 75.00, "badge": "BEST VALUE" },
+    { "id": "o2", "label": "2 Pack", "price": 27.18, "compareAt": 50.00, "badge": "MOST POPULAR" },
+    { "id": "o3", "label": "1 Pack", "price": 15.99 }
+  ],
+  
+"purchase": {
+  "headline": "How to Purchase",
+  "facebook": "https://facebook.com/gurneepeptides",
+  "email": "gurneepeptides@gmail.com",
+  "note": "Message us on Facebook to purchase. If unavailable, email us directly."
+},
+
+  "faq": [
+    { "q": "Is this product ready to ship?", "a": "Most items are in stock; we’ll confirm by email." },
+    { "q": "Do you offer bulk pricing?", "a": "Yes—include expected quantities in your email for a quote." },
+    { "q": "What is the storage guidance?", "a": "Store as indicated on the label/spec sheet. Catalog only—no usage guidance provided." }
+  ]
   },
   {
     "id": "RET-15",
