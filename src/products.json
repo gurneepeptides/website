@@ -1,0 +1,111 @@
+[
+  {
+    "id": "RET-10",
+    "name": "Retatrutide 10mg",
+    "dosage": "10 mg",
+    "volume": "3 mL",
+    "category": "GLP-Class",
+    "price": 40.55,
+    "image": null,
+    "tags": ["popular"]
+  },
+  {
+    "id": "RET-15",
+    "name": "Retatrutide 15mg",
+    "dosage": "15 mg",
+    "volume": "3 mL",
+    "category": "GLP-Class",
+    "price": null,
+    "image": null,
+    "tags": ["popular"]
+  },
+  {
+    "id": "RET-20",
+    "name": "Retatrutide 20mg",
+    "dosage": "20 mg",
+    "volume": "3 mL",
+    "category": "GLP-Class",
+    "price": null,
+    "image": null,
+    "tags": ["popular"]
+  },
+  {
+    "id": "TIRZ-10",
+    "name": "Tirzepatide 10mg",
+    "dosage": "10 mg",
+    "volume": "3 mL",
+    "category": "GLP-Class",
+    "price": null,
+    "image": null,
+    "tags": ["new"]
+  },
+  {
+    "id": "TIRZ-15",
+    "name": "Tirzepatide 15mg",
+    "dosage": "15 mg",
+    "volume": "3 mL",
+    "category": "GLP-Class",
+    "price": null,
+    "image": null,
+    "tags": ["new"]
+  },
+  {
+    "id": "TIRZ-20",
+    "name": "Tirzepatide 20mg",
+    "dosage": "20 mg",
+    "volume": "3 mL",
+    "category": "GLP-Class",
+    "price": null,
+    "image": null,
+    "tags": ["new"]
+  },
+  {
+    "id": "TIRZ-30",
+    "name": "Tirzepatide 30mg",
+    "dosage": "30 mg",
+    "volume": "3 mL",
+    "category": "GLP-Class",
+    "price": null,
+    "image": null,
+    "tags": ["new"]
+  },
+  {
+    "id": "BAC-10ML",
+    "name": "BAC Water 10ml",
+    "volume": "10 mL",
+    "category": "Research Supplies",
+    "price": null,
+    "image": null,
+    "tags": []
+  },
+  {
+    "id": "BPC-5",
+    "name": "BPC-157 5mg",
+    "dosage": "5 mg",
+    "volume": "3 mL",
+    "category": "Recovery",
+    "price": null,
+    "image": null,
+    "tags": []
+  },
+  {
+    "id": "WOLV-5-5",
+    "name": "BPC-157 5mg + TB 5mg",
+    "dosage": "5 mg + 5 mg",
+    "volume": "3 mL",
+    "category": "Recovery",
+    "price": null,
+    "image": null,
+    "tags": ["combo"]
+  },
+  {
+    "id": "GHK-50",
+    "name": "GHK-Cu 50mg",
+    "dosage": "50 mg",
+    "volume": "3 mL",
+    "category": "Aesthetics",
+    "price": null,
+    "image": null,
+    "tags": []
+  }
+]

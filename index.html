@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gurnee Peptides — Catalog</title>
+    <meta name="description" content="Gurnee Peptides — Research catalog (no checkout). For Research Use Only.">
+    <link rel="icon" type="image/png" href="/logo.png" />
+
+<style>
+  :root {
+    --bg: #0b1220;
+    --panel: #0f1a2b;
+    --ink: #e6eefc;
+    --sub: #97a3b6;
+    --border: #1b2a44;
+    --accent: #27a7b4;
+  }
+
+  * { box-sizing: border-box; }
+  html, body, #root { height: 100%; margin: 0; }
+  body {
+    font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Inter, Ubuntu, Arial;
+    background: var(--bg);
+    color: var(--ink);
+  }
+
+  a { color: var(--accent); }
+
+  /* Grid + card styling */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
+  }
+
+  .card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform .25s ease, box-shadow .25s ease, border-color .25s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: #21355a;
+    box-shadow: 0 12px 28px rgba(0,0,0,.35);
+  }
+
+  .imgwrap {
+    aspect-ratio: 1/1;
+    display: grid;
+    place-items: center;
+    background: #101c31;
+  }
+
+  .imgwrap img {
+    width: 75%;
+    height: 75%;
+    object-fit: contain;
+    transition: transform .25s ease;
+    filter: drop-shadow(0 6px 16px rgba(0,0,0,.35));
+  }
+
+  .card:hover .imgwrap img {
+    transform: scale(1.05);
+  }
+
+  .chip {
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #13223a;
+    color: #c7d2fe;
+    border: 1px solid #21355a;
+    white-space: nowrap;
+  }
+
+  .search input {
+  width: 260px;
+  max-width: 50vw;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  padding: 10px 14px;
+  border-radius: 999px; /* pill shape */
+  color: var(--ink);
+  outline: none;
+  font-size: 14px;
+  transition: border-color .25s ease, box-shadow .25s ease;
+}
+
+.search input::placeholder {
+  color: var(--sub);
+}
+
+.search input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(39,167,180,0.35);
+}
+
+
+
+/* --- Product options (cards) --- */
+.options {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.option {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 12px;
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px;
+  cursor: pointer;
+  transition: border-color .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.option:hover { border-color: #274c7e; box-shadow: 0 10px 24px rgba(0,0,0,.28); }
+
+.option.selected {
+  background: linear-gradient(90deg, rgba(39,167,180,.32), rgba(39,167,180,.08));
+  border-color: var(--accent);
+  box-shadow: 0 16px 36px rgba(0,0,0,.35);
+}
+
+.option .thumb {
+  width: 44px; height: 44px; border-radius: 10px; overflow: hidden;
+  display: grid; place-items: center; background: #101c31; border: 1px solid #1d2e4e;
+}
+.option .thumb img { width: 85%; height: 85%; object-fit: contain; }
+
+.option .title { font-weight: 650; }
+.option .sub { font-size: 12px; color: var(--sub); margin-top: 2px; }
+
+.option .price {
+  text-align: right;
+  font-weight: 700;
+  font-size: 16px;
+}
+.option .compare {
+  text-align: right;
+  font-size: 12px;
+  color: var(--sub);
+  text-decoration: line-through;
+}
+
+.badge {
+  font-size: 10px; font-weight: 700; letter-spacing: .2px;
+  color: #0b1220; background: #cdeef2; border: 1px solid #9bd9e2;
+  padding: 4px 8px; border-radius: 999px;
+  position: relative; top: -2px; margin-left: 8px;
+}
+.badge.blue { background:#cdeef2; border-color:#9bd9e2; }     /* BEST VALUE */
+.badge.gray { background:#e6e9f2; border-color:#c8cede; }     /* MOST POPULAR */
+
+.option .right {
+  display:flex; flex-direction:column; align-items:flex-end; gap:2px;
+}
+
+
+</style>
+
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
