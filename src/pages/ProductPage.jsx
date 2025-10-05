@@ -35,6 +35,7 @@ export default function ProductPage() {
 
   const [selected, setSelected] = useState(options[0]?.id);
 
+  console.log('prod: ', product)
   return (
     <div className="page container-narrow">
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
@@ -63,6 +64,7 @@ export default function ProductPage() {
             <p className="hero-desc">
               Add a short, elegant description here about research context, form, and storage.
               Keep it simple and reassuring. You can edit this per product later.
+              {product.description}
             </p>
 
             <div className="hero-disc">

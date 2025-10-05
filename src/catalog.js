@@ -80,6 +80,7 @@ function normalizeItem(item) {
     options: buildOptions(price),
     purchase: { ...PURCHASE_BLOCK },
     faq: [...FAQ_BLOCK],
+    description: item.description
   };
 }
 

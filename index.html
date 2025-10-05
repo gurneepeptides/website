@@ -333,6 +333,24 @@ details.faq-item[open] { border-color: #274c7e; }
   color: var(--sub);
 }
 
+
+
+/* --- Catalog layout (mobile-first) --- */
+.catalog-page { max-width: 1100px; margin: 0 auto; padding: 18px 16px; }
+
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);   /* ✅ at least two across on phones */
+  gap: 12px;
+}
+
+/* Scale up as screen grows */
+@media (min-width: 480px) { .catalog-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (min-width: 768px) { .catalog-grid { grid-template-columns: repeat(4, 1fr); } }
+@media (min-width: 1200px){ .catalog-grid { grid-template-columns: repeat(5, 1fr); } }
+
+/* Card polish stays the same (you already have .card/.imgwrap etc.) */
+
 </style>
 
   </head>

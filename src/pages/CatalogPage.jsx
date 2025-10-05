@@ -8,7 +8,7 @@ const Placeholder = "/placeholder.svg";
 export default function CatalogPage() {
   const [q, setQ] = useState("");
 
-  // Normalize catalog once
+  // Normalize once (e.g., fix image paths, defaults)
   const normalized = useMemo(() => normalizeCatalog(products), []);
 
   // Filter by search query
@@ -72,9 +72,7 @@ export default function CatalogPage() {
       </header>
 
       {/* MAIN */}
-      <main
-        style={{ maxWidth: "1100px", margin: "0 auto", padding: "18px 16px" }}
-      >
+      <main className="catalog-page">
         {/* Hero */}
         <section
           style={{
@@ -94,14 +92,7 @@ export default function CatalogPage() {
 
         {/* Product Grid */}
         <section>
-          <div
-            className="grid"
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(auto-fill, minmax(220px, 1fr))",
-              gap: "14px",
-            }}
-          >
+          <div className="catalog-grid">
             {filtered.map((p) => (
               <Link
                 key={p.id}
@@ -131,11 +122,7 @@ export default function CatalogPage() {
                     <img
                       src={p.image || Placeholder}
                       alt={p.name}
-                      style={{
-                        width: "75%",
-                        height: "75%",
-                        objectFit: "contain",
-                      }}
+                      style={{ width: "75%", height: "75%", objectFit: "contain" }}
                     />
                   </div>
                   <div style={{ padding: "12px" }}>
@@ -143,8 +130,7 @@ export default function CatalogPage() {
                       {p.name}
                     </h3>
                     <div style={{ color: "var(--sub)", fontSize: "12px" }}>
-                      {[p.dosage, p.volume].filter(Boolean).join(" • ") ||
-                        "Specs forthcoming"}
+                      {[p.dosage, p.volume].filter(Boolean).join(" • ") || "Specs forthcoming"}
                     </div>
                     <div
                       style={{
@@ -161,6 +147,7 @@ export default function CatalogPage() {
                         {(p.tags || []).map((tag) => (
                           <span
                             key={tag}
+                            className="chip"
                             style={{
                               fontSize: "10px",
                               padding: "3px 8px",
