@@ -349,7 +349,88 @@ details.faq-item[open] { border-color: #274c7e; }
 @media (min-width: 768px) { .catalog-grid { grid-template-columns: repeat(4, 1fr); } }
 @media (min-width: 1200px){ .catalog-grid { grid-template-columns: repeat(5, 1fr); } }
 
+
+
 /* Card polish stays the same (you already have .card/.imgwrap etc.) */
+
+
+
+/* --- Carousel (mobile-first) --- */
+.carousel {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #101c31;
+  border: 1px solid var(--border);
+}
+
+.carousel-track {
+  display: flex;
+  width: 100%;
+  touch-action: pan-y;
+  transition: transform .25s ease;
+}
+
+.carousel-slide {
+  min-width: 100%;
+  display: grid; place-items: center;
+}
+
+.carousel-slide img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  padding: 10px;
+  filter: drop-shadow(0 10px 24px rgba(0,0,0,.35));
+}
+
+/* Arrows */
+.carousel-arrow {
+  position: absolute;
+  top: 50%; transform: translateY(-50%);
+  background: rgba(8,14,26,.65);
+  border: 1px solid var(--border);
+  width: 38px; height: 38px;
+  border-radius: 999px;
+  display: grid; place-items: center;
+  color: var(--ink); font-weight: 800;
+  cursor: pointer; user-select: none;
+  transition: transform .1s ease, box-shadow .2s ease, background .2s ease;
+}
+.carousel-arrow:hover { box-shadow: 0 8px 18px rgba(0,0,0,.4); background: rgba(8,14,26,.8); }
+.carousel-arrow.left  { left: 8px; }
+.carousel-arrow.right { right: 8px; }
+
+/* Thumbs */
+.carousel-thumbs {
+  display: grid; grid-auto-flow: column; gap: 8px;
+  overflow-x: auto; padding-top: 10px;
+}
+.carousel-thumb {
+  flex: 0 0 auto;
+  width: 60px; height: 60px;
+  border-radius: 10px;
+  background: #0f1a2b;
+  border: 1px solid var(--border);
+  display: grid; place-items: center;
+  cursor: pointer;
+  opacity: .8;
+}
+.carousel-thumb img {
+  width: 90%; height: 90%; object-fit: contain;
+}
+.carousel-thumb.active {
+  outline: 2px solid var(--accent);
+  opacity: 1;
+}
+
+/* Desktop tweaks */
+@media (min-width: 768px) {
+  .carousel-slide img { max-width: 520px; padding: 14px; }
+  .carousel-thumb { width: 64px; height: 64px; }
+}
 
 </style>
 

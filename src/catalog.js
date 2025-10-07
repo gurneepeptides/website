@@ -75,6 +75,7 @@ function normalizeItem(item) {
     category: item.category ?? null,
     price, // normalized numeric (or null)
     image: item.image ?? null,
+    images: item.images ?? [],
     tags: Array.isArray(item.tags) ? item.tags : [],
     // IMPORTANT: Always rebuild from base price (ignore any raw item.options)
     options: buildOptions(price),

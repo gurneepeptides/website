@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useRef, useLayoutEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import products from "../products.json";
 import { normalizeCatalog } from "../catalog.js";
@@ -8,8 +8,8 @@ const Placeholder = "/placeholder.svg";
 function resolveImg(src) {
   if (!src) return Placeholder;
   if (/^https?:\/\//i.test(src)) return src; // external URL
-  if (src.startsWith("/")) return src;       // already root-relative
-  return `/${src}`;                          // make root-relative
+  if (src.startsWith("/")) return src; // already root-relative
+  return `/${src}`; // make root-relative
 }
 
 export default function ProductPage() {
@@ -17,7 +17,15 @@ export default function ProductPage() {
 
   // normalize once
   const normalized = useMemo(() => normalizeCatalog(products), []);
-  const product = useMemo(() => normalized.find((p) => p.id === id), [id, normalized]);
+  const product = useMemo(
+    () => normalized.find((p) => p.id === id),
+    [id, normalized]
+  );
+
+  useLayoutEffect(() => {
+    // ensure we start at the top when opening a product
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [id]);
 
   if (!product) {
     return (
@@ -26,18 +34,101 @@ export default function ProductPage() {
         <p style={{ color: "var(--sub)" }}>
           The item you’re looking for isn’t in the catalog.
         </p>
-        <Link to="/" style={{ color: "var(--accent)" }}>← Back to catalog</Link>
+        <Link to="/" style={{ color: "var(--accent)" }}>
+          ← Back to catalog
+        </Link>
       </div>
     );
   }
 
-  const options = product.options.length > 0 ? product.options : [];
+  // ----- IMAGES / CAROUSEL (new) -----
+  // Build images list from product.images (if present) else fallback to single image
+  const imgs = (
+    Array.isArray(product.images) && product.images.length > 0
+      ? product.images
+      : [product.image || Placeholder]
+  )
+    .filter(Boolean)
+    .map(resolveImg);
 
+  const [index, setIndex] = useState(0);
+  const trackRef = useRef(null);
+  const startX = useRef(0);
+  const deltaX = useRef(0);
+  const touching = useRef(false);
+
+  function clamp(n, min, max) {
+    return Math.max(min, Math.min(max, n));
+  }
+  function goTo(i) {
+    setIndex((prev) => clamp(i, 0, imgs.length - 1));
+  }
+  function prev() {
+    goTo(index - 1);
+  }
+  function next() {
+    goTo(index + 1);
+  }
+
+  function onTouchStart(e) {
+    touching.current = true;
+    startX.current = e.touches[0].clientX;
+    deltaX.current = 0;
+  }
+  function onTouchMove(e) {
+    if (!touching.current) return;
+    deltaX.current = e.touches[0].clientX - startX.current;
+    if (trackRef.current) {
+      trackRef.current.style.transition = "none";
+      trackRef.current.style.transform = `translateX(calc(${-index * 100}% + ${
+        deltaX.current
+      }px))`;
+    }
+  }
+  function onTouchEnd() {
+    touching.current = false;
+    const threshold = 50;
+    if (Math.abs(deltaX.current) > threshold) {
+      if (deltaX.current < 0) next();
+      else prev();
+    }
+    if (trackRef.current) {
+      trackRef.current.style.transition = "transform .25s ease";
+      trackRef.current.style.transform = `translateX(${-index * 100}%)`;
+    }
+    deltaX.current = 0;
+  }
+
+  function onKeyDown(e) {
+    if (e.key === "ArrowLeft") prev();
+    if (e.key === "ArrowRight") next();
+  }
+
+  // ----- OPTIONS -----
+  const options =
+    Array.isArray(product.options) && product.options.length > 0
+      ? product.options
+      : [];
   const [selected, setSelected] = useState(options[0]?.id);
 
-  console.log('prod: ', product)
+  // ----- PURCHASE fallbacks -----
+  const purchaseHeadline = product.purchase?.headline || "How to Purchase";
+  const purchaseFacebook =
+    product.purchase?.facebook || "https://facebook.com/gurneepeptides";
+  const purchaseNote =
+    product.purchase?.note ||
+    "Message us on Facebook to purchase. If unavailable, email us directly at gurneepeptides@gmail.com";
+
+  // ----- FAQ fallback -----
+  const faqs = Array.isArray(product.faq) ? product.faq : [];
+
   return (
-    <div className="page container-narrow">
+    <div
+      className="page container-narrow"
+      onKeyDown={onKeyDown}
+      tabIndex={0}
+      style={{ outline: "none" }}
+    >
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <Link to="/" style={{ color: "var(--accent)", textDecoration: "none" }}>
           ← Back
@@ -47,11 +138,77 @@ export default function ProductPage() {
         </span>
       </div>
 
-      {/* HERO */}
+      {/* HERO (with carousel) */}
       <section className="hero-card">
         <div className="hero-inner">
-          <div className="hero-image">
-            <img src={resolveImg(product.image)} alt={product.name} />
+          <div>
+            <div
+              className="carousel"
+              aria-roledescription="carousel"
+              aria-label={`${product.name} images`}
+            >
+              <div
+                ref={trackRef}
+                className="carousel-track"
+                style={{ transform: `translateX(${-index * 100}%)` }}
+                onTouchStart={onTouchStart}
+                onTouchMove={onTouchMove}
+                onTouchEnd={onTouchEnd}
+              >
+                {imgs.map((src, i) => (
+                  <div
+                    className="carousel-slide"
+                    key={i}
+                    aria-hidden={i !== index}
+                  >
+                    <img src={src} alt={`${product.name} ${i + 1}`} />
+                  </div>
+                ))}
+              </div>
+
+              {imgs.length > 1 && (
+                <>
+                  <button
+                    className="carousel-arrow left"
+                    type="button"
+                    onClick={prev}
+                    aria-label="Previous image"
+                  >
+                    ‹
+                  </button>
+                  <button
+                    className="carousel-arrow right"
+                    type="button"
+                    onClick={next}
+                    aria-label="Next image"
+                  >
+                    ›
+                  </button>
+                </>
+              )}
+            </div>
+
+            {imgs.length > 1 && (
+              <div
+                className="carousel-thumbs"
+                role="tablist"
+                aria-label="Image thumbnails"
+              >
+                {imgs.map((src, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    role="tab"
+                    aria-selected={i === index}
+                    className={`carousel-thumb ${i === index ? "active" : ""}`}
+                    onClick={() => goTo(i)}
+                    title={`Image ${i + 1}`}
+                  >
+                    <img src={src} alt={`Thumb ${i + 1}`} />
+                  </button>
+                ))}
+              </div>
+            )}
           </div>
 
           <div>
@@ -61,14 +218,11 @@ export default function ProductPage() {
                 "Specs forthcoming"}
             </div>
 
-            <p className="hero-desc">
-              Add a short, elegant description here about research context, form, and storage.
-              Keep it simple and reassuring. You can edit this per product later.
-              {product.description}
-            </p>
+            <p className="hero-desc">{product.description}</p>
 
             <div className="hero-disc">
-              ⚠️ For Research Use Only • Not for Human Use • No medical benefit suggested.
+              ⚠️ For Research Use Only • Not for Human Use • No medical benefit
+              suggested.
             </div>
           </div>
         </div>
@@ -112,9 +266,10 @@ export default function ProductPage() {
                       ? `$${opt.price.toFixed(2)}`
                       : "—"}
                   </div>
-                  {typeof opt.compareAt === "number" && opt.compareAt > opt.price && (
-                    <div className="compare">${opt.compareAt.toFixed(2)}</div>
-                  )}
+                  {typeof opt.compareAt === "number" &&
+                    opt.compareAt > (opt.price ?? 0) && (
+                      <div className="compare">${opt.compareAt.toFixed(2)}</div>
+                    )}
                 </div>
               </div>
             );
@@ -122,19 +277,19 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* PURCHASE INSTRUCTIONS */}
+      {/* PURCHASE INSTRUCTIONS (safer + full-width) */}
       <section className="section">
         <div className="purchase-box">
-          <h3>{product.purchase.headline}</h3>
+          <h3>{purchaseHeadline}</h3>
           <a
-            href={product.purchase.facebook}
+            href={purchaseFacebook}
             target="_blank"
             rel="noopener noreferrer"
             className="purchase-btn"
           >
             Message Us to Purchase
           </a>
-          <div className="purchase-note">{product.purchase.note}</div>
+          <div className="purchase-note">{purchaseNote}</div>
         </div>
       </section>
 
@@ -142,7 +297,7 @@ export default function ProductPage() {
       <section className="section">
         <h3 style={{ marginBottom: 8 }}>FAQs</h3>
         <div className="faq">
-          {product.faq.map((item, idx) => (
+          {faqs.map((item, idx) => (
             <details key={idx} className="faq-item">
               <summary>{item.q}</summary>
               <div className="answer">{item.a}</div>
@@ -151,13 +306,19 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* CTA */}
+      {/* CTA (converted to Message button) */}
       <section className="cta-row">
-        <button type="button" disabled className="cta-primary">
-          Catalog Only (No Checkout)
-        </button>
+        <a
+          href={purchaseFacebook}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="purchase-btn"
+          style={{ textDecoration: "none" }}
+        >
+          Message Us to Purchase
+        </a>
         <span className="cta-note">
-          Selected: {options.find((o) => o.id === selected)?.label}
+          Selected: {options.find((o) => o.id === selected)?.label || "—"}
         </span>
       </section>
     </div>
