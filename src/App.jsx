@@ -41,6 +41,7 @@ export default function App() {
       <Routes>
         <Route path="/" element={<CatalogPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="*" element={<CatalogPage />} />
       </Routes>
       <MessengerButton />
 

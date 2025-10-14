@@ -1,31 +1,31 @@
-[
+const products = [
   {
     "id": "RET-10",
     "name": "Retatrutide 10mg",
     "dosage": "10 mg",
     "volume": "3 mL",
     "category": "GLP-Class",
-    "price": 50,
-    "image": "products/reta10mg.png",
-    "images": ["products/reta10mg.png", "coas/reta10.png"],
+    "price": 45,
+    "image": "products/reta10mg.webp",
+    "images": ["products/reta10mg.webp", "coas/reta10.png"],
     "tags": ["popular"],
-    "options": [
-      {
-        "id": "o1",
-        "label": "3 Pack",
-        "price": 95.97,
-        "compareAt": 75.0,
-        "badge": "BEST VALUE"
-      },
-      {
-        "id": "o2",
-        "label": "2 Pack",
-        "price": 27.18,
-        "compareAt": 50.0,
-        "badge": "MOST POPULAR"
-      },
-      { "id": "o3", "label": "1 Pack", "price": 15.99 }
-    ],
+    // "options": [
+    //   {
+    //     "id": "o1",
+    //     "label": "3 Pack",
+    //     "price": 95.97,
+    //     "compareAt": 75.0,
+    //     "badge": "BEST VALUE"
+    //   },
+    //   {
+    //     "id": "o2",
+    //     "label": "2 Pack",
+    //     "price": 27.18,
+    //     "compareAt": 50.0,
+    //     "badge": "MOST POPULAR"
+    //   },
+    //   { "id": "o3", "label": "1 Pack", "price": 15.99 }
+    // ],
 
     "purchase": {
       "headline": "How to Purchase",
@@ -56,8 +56,8 @@
     "dosage": "15 mg",
     "volume": "3 mL",
     "category": "GLP-Class",
-    "price": 65,
-    "image": "products/reta15mg.png",
+    "price": 55,
+    "image": "products/reta15mg.webp",
     "tags": ["popular"],
     "description": "Retatrutide is a multi-receptor GLP research compound studied for its potential in supporting weight management, metabolic balance, and blood sugar control. Early research has shown promising effects on reducing appetite, improving insulin sensitivity, and promoting overall metabolic health. Each vial is lab-tested for purity, providing researchers with a consistent foundation for advanced metabolic studies."
   },
@@ -67,8 +67,8 @@
     "dosage": "20 mg",
     "volume": "3 mL",
     "category": "GLP-Class",
-    "price": 75,
-    "image": "products/reta20mg.png",
+    "price": 70,
+    "image": "products/reta20mg.webp",
     "tags": ["Out of Stock"],
     "description": "Retatrutide is a multi-receptor GLP research compound studied for its potential in supporting weight management, metabolic balance, and blood sugar control. Early research has shown promising effects on reducing appetite, improving insulin sensitivity, and promoting overall metabolic health. Each vial is lab-tested for purity, providing researchers with a consistent foundation for advanced metabolic studies."
   },
@@ -78,8 +78,8 @@
     "dosage": "10 mg",
     "volume": "3 mL",
     "category": "GLP-Class",
-    "price": 45,
-    "image": "products/tirz10mg.png",
+    "price": 40,
+    "image": "products/tirz10mg.webp",
     "tags": ["new"],
     "description": "Tirzepatide is a dual GIP and GLP-1 receptor agonist widely studied for its role in weight reduction and glucose regulation. Research has shown significant improvements in appetite control, insulin sensitivity, and metabolic function, making it one of the most promising compounds in modern metabolic research. Each vial is lab-tested for purity and consistency, giving researchers a reliable tool for advancing studies in metabolic health."
   },
@@ -89,8 +89,8 @@
     "dosage": "15 mg",
     "volume": "3 mL",
     "category": "GLP-Class",
-    "price": 60,
-    "image": "products/tirz15mg.png",
+    "price": 55,
+    "image": "products/tirz15mg.webp",
     "tags": ["new"],
     "description": "Tirzepatide is a dual GIP and GLP-1 receptor agonist widely studied for its role in weight reduction and glucose regulation. Research has shown significant improvements in appetite control, insulin sensitivity, and metabolic function, making it one of the most promising compounds in modern metabolic research. Each vial is lab-tested for purity and consistency, giving researchers a reliable tool for advancing studies in metabolic health."
   },
@@ -100,8 +100,8 @@
     "dosage": "20 mg",
     "volume": "3 mL",
     "category": "GLP-Class",
-    "price": 75,
-    "image": "products/tirz20mg.png",
+    "price": 70,
+    "image": "products/tirz20.webp",
     "tags": ["new"],
     "description": "Tirzepatide is a dual GIP and GLP-1 receptor agonist widely studied for its role in weight reduction and glucose regulation. Research has shown significant improvements in appetite control, insulin sensitivity, and metabolic function, making it one of the most promising compounds in modern metabolic research. Each vial is lab-tested for purity and consistency, giving researchers a reliable tool for advancing studies in metabolic health."
   },
@@ -111,8 +111,30 @@
     "dosage": "30 mg",
     "volume": "3 mL",
     "category": "GLP-Class",
+    "price":80,
+    "image": "products/tirz30mg.webp",
+    "tags": ["new"],
+    "description": "Tirzepatide is a dual GIP and GLP-1 receptor agonist widely studied for its role in weight reduction and glucose regulation. Research has shown significant improvements in appetite control, insulin sensitivity, and metabolic function, making it one of the most promising compounds in modern metabolic research. Each vial is lab-tested for purity and consistency, giving researchers a reliable tool for advancing studies in metabolic health."
+  },
+    {
+    "id": "TIRZ-50",
+    "name": "Tirzepatide 50mg",
+    "dosage": "50 mg",
+    "volume": "3 mL",
+    "category": "GLP-Class",
     "price": 95,
-    "image": "products/tirz30mg.png",
+    "image": "products/tirz30mg.webp",
+    "tags": ["new"],
+    "description": "Tirzepatide is a dual GIP and GLP-1 receptor agonist widely studied for its role in weight reduction and glucose regulation. Research has shown significant improvements in appetite control, insulin sensitivity, and metabolic function, making it one of the most promising compounds in modern metabolic research. Each vial is lab-tested for purity and consistency, giving researchers a reliable tool for advancing studies in metabolic health."
+  },
+      {
+    "id": "TIRZ-60",
+    "name": "Tirzepatide 60mg",
+    "dosage": "60 mg",
+    "volume": "3 mL",
+    "category": "GLP-Class",
+    "price": 110,
+    "image": "products/tirz30mg.webp",
     "tags": ["new"],
     "description": "Tirzepatide is a dual GIP and GLP-1 receptor agonist widely studied for its role in weight reduction and glucose regulation. Research has shown significant improvements in appetite control, insulin sensitivity, and metabolic function, making it one of the most promising compounds in modern metabolic research. Each vial is lab-tested for purity and consistency, giving researchers a reliable tool for advancing studies in metabolic health."
   },
@@ -122,9 +144,20 @@
     "volume": "10 mL",
     "category": "Research Supplies",
     "price": 12,
-    "image": "products/bac10.png",
+    "image": "products/bac10.webp",
     "tags": [],
     "description": "Bacteriostatic Water (BAC Water) is sterile, non-pyrogenic water containing 0.9% benzyl alcohol. It is commonly used in research for reconstituting lyophilized compounds, allowing for accurate preparation and storage of test materials. Its bacteriostatic properties help inhibit bacterial growth, making it suitable for repeated withdrawals under controlled research conditions."
+  },
+
+  {
+    "id": "HOSPIRA-30ML",
+    "name": "Hospira 30ml",
+    "volume": "30 mL",
+    "category": "Research Supplies",
+    "price": 30,
+    "image": "products/hospira.webp",
+    "tags": [],
+    "description": "Hospira Water (BAC Water) is sterile, non-pyrogenic water containing 0.9% benzyl alcohol. It is commonly used in research for reconstituting lyophilized compounds, allowing for accurate preparation and storage of test materials. Its bacteriostatic properties help inhibit bacterial growth, making it suitable for repeated withdrawals under controlled research conditions."
   },
   {
     "id": "BPC-5",
@@ -133,7 +166,7 @@
     "volume": "3 mL",
     "category": "Recovery",
     "price": 30,
-    "image": "products/bpc5mg.png",
+    "image": "products/bpc5mg.webp",
     "tags": [],
     "images": ["products/bpc5mg.png", "coas/bpc5mg.png"],
     "description": "BPC-157 is a synthetic peptide derived from a protective protein found in gastric juice. Research has shown its potential to support tissue repair, muscle and tendon recovery, and gut health. Studies suggest BPC-157 may promote angiogenesis (new blood vessel growth), accelerate wound healing, and reduce inflammation, making it a widely studied compound in regenerative and recovery-focused research. Each vial is lab-tested for purity to ensure consistent results in experimental settings."
@@ -145,7 +178,7 @@
     "volume": "3 mL",
     "category": "Recovery",
     "price": 45,
-    "image": "products/bpc_tb5mg.png",
+    "image": "products/bpc_tb5mg.webp",
     "images": ["products/bpc_tb5mg.png", "coas/bpc_tb.png"],
 
     "tags": ["combo"],
@@ -157,9 +190,9 @@
     "dosage": "50 mg",
     "volume": "3 mL",
     "category": "Aesthetics",
-    "price": 35,
-    "image": "products/ghk50.png",
-    "images": ["products/ghk50.png", "coas/ghkcu50.png"],
+    "price": 30,
+    "image": "products/ghk50.webp",
+    "images": ["products/ghk50.webp", "coas/ghkcu50.png"],
 
     "tags": [],
     "description": "GHK-Cu is a naturally occurring copper peptide that has been widely studied for its role in skin regeneration, hair growth, and wound healing. Research shows it may stimulate collagen and elastin production, promote angiogenesis (new blood vessel growth), and support anti-inflammatory and antioxidant activity. Because of these properties, GHK-Cu has become a key compound in studies on anti-aging, tissue repair, and cosmetic science. Each vial is lab-tested to ensure purity and reliability in research applications."
@@ -171,8 +204,8 @@
     "volume": "3 mL",
     "category": "Aesthetics",
     "price": 45,
-    "image": "products/tesamorelin10.png",
-    "images": ["products/tesamorelin10.png", "coas/tesa.png"],
+    "image": "products/tesamorelin10.webp",
+    "images": ["products/tesamorelin10.webp", "coas/tesa.png"],
 
     "tags": [],
     "description": "Tesamorelin is a synthetic peptide and growth hormone–releasing hormone (GHRH) analogue studied for its ability to stimulate the natural release of growth hormone. Research has shown it may support fat metabolism, muscle development, and improved body composition, making it a valuable compound in studies of metabolic health and age-related decline. It has also been investigated for its role in lipid regulation and cognitive function. Each vial is lab-tested for purity, providing researchers with a consistent foundation for advanced studies."
@@ -183,9 +216,9 @@
     "dosage": "5 mg",
     "volume": "3 mL",
     "category": "Aesthetics",
-    "price": 40,
-    "image": "products/ipamorelin5.png",
-    "images": ["products/ipamorelin5.png", "coas/ipa5.png"],
+    "price": 35,
+    "image": "products/ipa5mg.webp",
+    "images": ["products/ipa5mg.webp", "coas/ipa5.png"],
 
     "tags": [],
     "description": "Ipamorelin is a selective growth hormone secretagogue (GHS) studied for its ability to trigger natural growth hormone release without significantly affecting cortisol or prolactin levels. Research highlights its potential in muscle growth, recovery, bone strength, and fat metabolism, making it a widely studied compound in performance and anti-aging research. Its targeted action and mild profile have made Ipamorelin one of the most explored peptides for safe, controlled growth hormone studies."
@@ -197,7 +230,7 @@
     "volume": "3 mL",
     "category": "Aesthetics",
     "price": 35,
-    "image": "products/hcg5000.png",
+    "image": "products/hcg5000.webp",
     "tags": [],
     "description": "Human Chorionic Gonadotropin (HCG) is a naturally occurring hormone widely studied for its role in reproductive health and hormone regulation. Research has shown it may stimulate the production of testosterone and support fertility, while also being investigated in studies related to weight management and endocrine system function. Each vial is lab-tested for purity, providing researchers with a reliable compound for exploring hormone-related pathways."
   },
@@ -208,8 +241,8 @@
     "volume": "10 mL",
     "category": "Aesthetics",
     "price": 45,
-    "image": "products/nad500.png",
-    "images": ["products/nad500.png", "coas/nad.png"],
+    "image": "products/nad500.webp",
+    "images": ["products/nad500.webp", "coas/nad.png"],
 
     "tags": [],
     "description": "Nicotinamide Adenine Dinucleotide (NAD+) is a vital coenzyme found in every cell, essential for energy production and cellular repair. Research has shown NAD+ plays a central role in metabolism, mitochondrial function, and DNA repair, while also being studied for its potential in anti-aging, neuroprotection, and overall cellular health. Each vial is lab-tested to ensure purity and consistency, giving researchers a dependable compound for advanced studies in longevity and energy metabolism."
@@ -220,9 +253,9 @@
     "dosage": "5 mg",
     "volume": "3 mL",
     "category": "Aesthetics",
-    "price": 35,
-    "image": "products/cagri5.png",
-    "images": ["products/cagri5.png", "coas/cagri.png"],
+    "price": 30,
+    "image": "products/cagri5.webp",
+    "images": ["products/cagri5.webp", "coas/cagri.png"],
 
     "tags": [],
     "description": "Cagrilintide is a long-acting analogue of the hormone amylin, studied for its potential in weight management and metabolic control. In clinical trials, once-weekly cagrilintide produced significant bodyweight reductions in people with obesity or overweight."
@@ -234,8 +267,8 @@
     "volume": "3 mL",
     "category": "Aesthetics",
     "price": 45,
-    "image": "products/semax10.png",
-    "images": ["products/semax10.png", "coas/semax.png"],
+    "image": "products/semax10.webp",
+    "images": ["products/semax10.webp", "coas/semax.png"],
 
     "tags": [],
     "description": "Semax is a synthetic peptide originally developed in Russia, widely studied for its neuroprotective and cognitive-enhancing properties. Research has shown it may support memory, focus, learning, and stress resilience by modulating the brain’s dopaminergic and serotonergic systems. Studies also suggest potential benefits in neuroprotection, stroke recovery, and mood regulation, making Semax a valuable compound in neuroscience and cognitive research. Each vial is lab-tested for purity and reliability to ensure consistent results in experimental settings."
@@ -247,8 +280,8 @@
     "volume": "3 mL",
     "category": "Aesthetics",
     "price": 40,
-    "image": "products/selank10.png",
-    "images": ["products/selank10.png", "coas/selank.png"],
+    "image": "products/selank10.webp",
+    "images": ["products/selank10.webp", "coas/selank.png"],
 
     "tags": [],
     "description": "Selank is a synthetic peptide derived from the naturally occurring immunomodulatory peptide tuftsin. It has been studied for its potential to support anxiety reduction, mood stabilization, and cognitive function. Research suggests Selank may influence the GABAergic system, helping promote calmness without sedation, while also enhancing memory, focus, and stress resilience. Its dual action in both neurological and immune pathways makes it a widely explored compound in cognitive and mood research. Each vial is lab-tested for purity and consistency to ensure reliable results in experimental settings."
@@ -260,8 +293,8 @@
     "volume": "3 mL",
     "category": "Aesthetics",
     "price": 30,
-    "image": "products/motsc10.png",
-    "images": ["products/motsc10.png", "coas/motsc.png"],
+    "image": "products/motsc10.webp",
+    "images": ["products/motsc10.webp", "coas/motsc.png"],
 
     "tags": [],
     "description": "MOTS-c is a mitochondrial-derived peptide that has been studied for its role in energy regulation, metabolism, and cellular stress response. Research suggests MOTS-c may help improve insulin sensitivity, exercise endurance, and fat metabolism, while also protecting cells under metabolic or oxidative stress. Because of these effects, it has become a promising compound in studies of longevity, metabolic health, and athletic performance. Each vial is lab-tested for purity and consistency, providing researchers with a reliable foundation for advanced metabolic studies."
@@ -273,9 +306,13 @@
     "volume": "3 mL",
     "category": "Aesthetics",
     "price": 40,
-    "image": "products/pt141_10.png",
-    "images": ["products/pt141_10.png", "coas/pt141.png"],
+    "image": "products/pt141_10.webp",
+    "images": ["products/pt141_10.webp", "coas/pt141.png"],
     "tags": [],
     "description": "PT-141, also known as Bremelanotide, is a peptide studied for its effects on sexual function and arousal pathways. Unlike compounds that act on the vascular system, PT-141 works through the central nervous system, where research has shown it can activate melanocortin receptors involved in sexual desire and performance. Studies suggest potential benefits in both men and women, making PT-141 a key compound in research on libido, arousal, and neurological control of sexual function. Each vial is lab-tested for purity and consistency to ensure reliable results in controlled research settings."
   }
 ]
+
+
+
+export default products;

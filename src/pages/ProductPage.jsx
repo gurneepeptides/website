@@ -1,6 +1,6 @@
 import React, { useMemo, useState, useRef, useLayoutEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import products from "../products.json";
+import products from "../products.js";
 import { normalizeCatalog } from "../catalog.js";
 
 const Placeholder = "/placeholder.svg";

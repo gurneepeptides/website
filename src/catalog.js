@@ -9,7 +9,7 @@ const DISCOUNTS = {
 
 const PURCHASE_BLOCK = {
   headline: "How to Purchase",
-  facebook: "https://www.facebook.com/people/Gurnee-Peptides/61580797282365/#",
+  facebook: "https://m.me/61580797282365",
   email: "gurneepeptides@gmail.com",
   note: "Message us on Facebook to purchase. If unavailable, email us directly.",
 };
@@ -44,22 +44,37 @@ const money = (n) =>
     ? Number((Math.round((n + Number.EPSILON) * 100) / 100).toFixed(2))
     : null;
 
+
+function roundToNearest5(num) {
+  return Math.round(num / 5) * 5;
+}
+
 function buildOptions(basePriceRaw) {
   const basePrice = toNumber(basePriceRaw);
   if (basePrice == null) return []; // keep key but empty if no base price
 
-  // Order: 3 Pack, 2 Pack, 1 Pack (like your template)
   const tiers = [
     { id: "o1", qty: 3, label: "3 Pack", badge: "BEST VALUE" },
     { id: "o2", qty: 2, label: "2 Pack", badge: "MOST POPULAR" },
-    { id: "o3", qty: 1, label: "1 Pack", badge: undefined },
+    { id: "o3", qty: 1, label: "1 Pack" },
   ];
 
   return tiers.map(({ id, qty, label, badge }) => {
-    const compareAt = money(basePrice * qty);
+    const compareAtRaw = basePrice * qty;
     const discount = DISCOUNTS[qty] ?? 0;
-    const price = money(compareAt * (1 - discount));
-    const opt = { id, label, price, compareAt };
+    const priceRaw = compareAtRaw * (1 - discount);
+
+    // ✅ Round to nearest 5 and remove decimals
+    const compareAtRounded = roundToNearest5(compareAtRaw);
+    const priceRounded = roundToNearest5(priceRaw);
+
+    const opt = {
+      id,
+      label,
+      price: money(priceRounded),
+      compareAt: money(compareAtRounded),
+    };
+
     if (badge) opt.badge = badge;
     return opt;
   });
