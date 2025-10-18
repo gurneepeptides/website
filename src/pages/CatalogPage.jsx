@@ -7,16 +7,32 @@ const Placeholder = "/placeholder.svg";
 
 export default function CatalogPage() {
   const [q, setQ] = useState("");
+  const [activeCat, setActiveCat] = useState("All");
 
-  // Normalize once (e.g., fix image paths, defaults)
+  // Normalize once (e.g., image paths, safe defaults)
   const normalized = useMemo(() => normalizeCatalog(products), []);
 
-  // Filter by search query
+  // Build category list with counts (mobile-first)
+  const categories = useMemo(() => {
+    const counts = normalized.reduce((acc, p) => {
+      const cat = p.category || "Uncategorized";
+      acc[cat] = (acc[cat] || 0) + 1;
+      return acc;
+    }, {});
+    // Turn into array like [{name:'GLP-Class', count: 3}, ...]
+    return Object.entries(counts).map(([name, count]) => ({ name, count }));
+  }, [normalized]);
+
+  // Apply search + category filters
   const filtered = useMemo(() => {
     const v = q.trim().toLowerCase();
-    if (!v) return normalized;
-    return normalized.filter((p) => p.name.toLowerCase().includes(v));
-  }, [q, normalized]);
+    return normalized.filter((p) => {
+      const matchSearch = v ? p.name.toLowerCase().includes(v) : true;
+      const cat = p.category || "Uncategorized";
+      const matchCat = activeCat === "All" ? true : cat === activeCat;
+      return matchSearch && matchCat;
+    });
+  }, [q, activeCat, normalized]);
 
   return (
     <div>
@@ -80,7 +96,7 @@ export default function CatalogPage() {
             border: "1px solid var(--border)",
             borderRadius: "16px",
             padding: "18px",
-            marginBottom: "18px",
+            marginBottom: "12px",
           }}
         >
           <h2 style={{ margin: "0 0 6px 0" }}>Catalog</h2>
@@ -88,6 +104,60 @@ export default function CatalogPage() {
             For Research Use Only • Not for Human Use • No medical benefit
             suggested.
           </p>
+        </section>
+
+        {/* Category Filters (mobile-first, scrollable if many) */}
+        <section
+          style={{
+            marginBottom: "14px",
+            display: "flex",
+            gap: "8px",
+            overflowX: "auto",
+            paddingBottom: "4px",
+            WebkitOverflowScrolling: "touch",
+          }}
+        >
+          {/* "All" button */}
+          <button
+            type="button"
+            onClick={() => setActiveCat("All")}
+            style={{
+              whiteSpace: "nowrap",
+              padding: "8px 12px",
+              borderRadius: "999px",
+              border: "1px solid var(--border)",
+              background:
+                activeCat === "All" ? "var(--panel)" : "rgba(15,26,43,.65)",
+              color: "var(--ink)",
+              fontWeight: activeCat === "All" ? 700 : 500,
+              cursor: "pointer",
+            }}
+          >
+            All ({normalized.length})
+          </button>
+
+          {/* Each category */}
+          {categories.map(({ name, count }) => (
+            <button
+              key={name}
+              type="button"
+              onClick={() => setActiveCat(name)}
+              style={{
+                whiteSpace: "nowrap",
+                padding: "8px 12px",
+                borderRadius: "999px",
+                border: "1px solid var(--border)",
+                background:
+                  activeCat === name ? "var(--panel)" : "rgba(15,26,43,.65)",
+                color: "var(--ink)",
+                fontWeight: activeCat === name ? 700 : 500,
+                cursor: "pointer",
+              }}
+              title={`${name} (${count})`}
+            >
+              {name} ({count})
+            </button>
+          ))}
         </section>
 
         {/* Product Grid */}
@@ -130,7 +200,8 @@ export default function CatalogPage() {
                       {p.name}
                     </h3>
                     <div style={{ color: "var(--sub)", fontSize: "12px" }}>
-                      {[p.dosage, p.volume].filter(Boolean).join(" • ") || "Specs forthcoming"}
+                      {[p.dosage, p.volume].filter(Boolean).join(" • ") ||
+                        "Specs forthcoming"}
                     </div>
                     <div
                       style={{
