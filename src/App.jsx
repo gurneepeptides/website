@@ -1,7 +1,11 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+import Navigation from "./components/Navigation";
 import CatalogPage from "./pages/CatalogPage";
 import ProductPage from "./pages/ProductPage";
+import FAQPage from "./pages/FAQPage";
+import ReviewsPage from "./pages/ReviewsPage";
+import ContactPage from "./pages/ContactPage";
 
 function TopBar() {
   return (
@@ -38,13 +42,16 @@ export default function App() {
   return (
     <>
       <TopBar />
+      <Navigation />
       <Routes>
         <Route path="/" element={<CatalogPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
+        <Route path="/faq" element={<FAQPage />} />
+        <Route path="/reviews" element={<ReviewsPage />} />
+        <Route path="/contact" element={<ContactPage />} />
         <Route path="*" element={<CatalogPage />} />
       </Routes>
       <MessengerButton />
-
     </>
   );
 }
