@@ -16,7 +16,7 @@ function TopBar() {
   return (
     <div className="topbar">
       🚚 <strong>Same-Day Shipping</strong> on orders confirmed before 3PM CT •
-      For Research Use Only <br/> SITE IS UNDER CONSTRUCTION 
+      For Research Use Only <br/> Site is undergoing changes 
     </div>
   );
 }

@@ -66,130 +66,150 @@ export default function CalculatorPage() {
     };
   }, [vialStrength, bacWater, desiredDose, doseUnit]);
 
-  // Syringe Component
-  const Syringe = ({ fillPercent, units }) => (
+// Syringe Component (updated)
+const Syringe = ({ fillPercent, units }) => (
+  <div style={{
+    position: "relative",
+    width: "100%",
+    maxWidth: "300px",
+    margin: "0 auto",
+    padding: "20px 0"
+  }}>
+    {/* Syringe Body */}
     <div style={{
       position: "relative",
-      width: "100%",
-      maxWidth: "300px",
+      width: "80px",
+      height: "300px",
       margin: "0 auto",
-      padding: "20px 0"
+      background: "rgba(255,255,255,0.05)",
+      border: "3px solid rgba(255,255,255,0.2)",
+      borderRadius: "8px",
+      // CHANGED: allow the level indicator to overflow outside the body
+      overflow: "visible",
+      boxShadow: "inset 0 0 20px rgba(0,0,0,0.3)"
     }}>
-      {/* Syringe Body */}
-      <div style={{
-        position: "relative",
-        width: "80px",
-        height: "300px",
-        margin: "0 auto",
-        background: "rgba(255,255,255,0.05)",
-        border: "3px solid rgba(255,255,255,0.2)",
-        borderRadius: "8px",
-        overflow: "hidden",
-        boxShadow: "inset 0 0 20px rgba(0,0,0,0.3)"
-      }}>
-        {/* Scale Markings */}
-        {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map(mark => (
-          <div
-            key={mark}
-            style={{
-              position: "absolute",
-              bottom: `${mark}%`,
-              left: 0,
-              right: 0,
-              height: mark % 10 === 0 ? "3px" : "2px",
-              background: mark % 50 === 0 ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.4)",
-              zIndex: 1
-            }}
-          >
-            {/* Unit Label - styled like real syringe markings */}
-            <span style={{
-              position: "absolute",
-              left: "50%",
-              top: "-2px",
-              transform: "translate(-50%, -100%)",
-              fontSize: "clamp(12px, 2.5vw, 14px)",
-              color: "#f9fafb",
-              fontWeight: "800",
-              textShadow: "0 1px 3px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)",
-              padding: "2px 4px",
-              background: mark % 50 === 0 ? "rgba(96, 165, 250, 0.3)" : "transparent",
-              borderRadius: "3px",
-              whiteSpace: "nowrap"
-            }}>
-              {mark}
-            </span>
-          </div>
-        ))}
-
-        {/* Liquid Fill */}
-        <div style={{
-          position: "absolute",
-          bottom: 0,
-          left: 0,
-          right: 0,
-          height: `${fillPercent}%`,
-          background: fillPercent > 75 
-            ? "linear-gradient(180deg, #ef4444, #dc2626)" 
-            : fillPercent > 50 
-            ? "linear-gradient(180deg, #f59e0b, #d97706)"
-            : "linear-gradient(180deg, #60a5fa, #3b82f6)",
-          transition: "height 0.5s ease, background 0.3s ease",
-          boxShadow: "0 -2px 10px rgba(96, 165, 250, 0.5)"
-        }}>
-          {/* Meniscus Effect */}
-          <div style={{
+      {/* Scale Markings */}
+      {[0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100].map(mark => (
+        <div
+          key={mark}
+          style={{
             position: "absolute",
-            top: "-2px",
+            bottom: `${mark}%`,
             left: 0,
             right: 0,
-            height: "4px",
-            background: "rgba(255,255,255,0.3)",
-            borderRadius: "50%"
-          }} />
-        </div>
-
-        {/* Current Level Indicator */}
-        {fillPercent > 0 && (
-          <div style={{
+            height: mark % 10 === 0 ? "3px" : "2px",
+            background: mark % 50 === 0 ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.4)",
+            zIndex: 1
+          }}
+        >
+          {/* Unit Label */}
+          <span style={{
             position: "absolute",
-            bottom: `${fillPercent}%`,
-            right: "-60px",
-            transform: "translateY(50%)",
-            background: "linear-gradient(135deg, #60a5fa, #a78bfa)",
-            color: "#fff",
-            padding: "6px 12px",
-            borderRadius: "8px",
-            fontSize: "14px",
-            fontWeight: "700",
-            whiteSpace: "nowrap",
-            boxShadow: "0 4px 12px rgba(0,0,0,0.3)"
+            left: "50%",
+            top: "-2px",
+            transform: "translate(-50%, -100%)",
+            fontSize: "clamp(12px, 2.5vw, 14px)",
+            color: "#f9fafb",
+            fontWeight: "800",
+            textShadow: "0 1px 3px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)",
+            padding: "2px 4px",
+            background: mark % 50 === 0 ? "rgba(96, 165, 250, 0.3)" : "transparent",
+            borderRadius: "3px",
+            whiteSpace: "nowrap"
           }}>
-            {units} units
-          </div>
-        )}
-      </div>
+            {mark}
+          </span>
+        </div>
+      ))}
 
-      {/* Plunger */}
+      {/* Liquid Fill */}
       <div style={{
-        width: "60px",
-        height: "40px",
-        margin: "10px auto 0",
-        background: "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
-        border: "2px solid rgba(255,255,255,0.2)",
-        borderRadius: "8px 8px 20px 20px",
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center"
+        position: "absolute",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        height: `${fillPercent}%`,
+        background: fillPercent > 75 
+          ? "linear-gradient(180deg, #ef4444, #dc2626)" 
+          : fillPercent > 50 
+          ? "linear-gradient(180deg, #f59e0b, #d97706)"
+          : "linear-gradient(180deg, #60a5fa, #3b82f6)",
+        transition: "height 0.5s ease, background 0.3s ease",
+        boxShadow: "0 -2px 10px rgba(96, 165, 250, 0.5)"
       }}>
+        {/* Meniscus Effect */}
         <div style={{
-          width: "20px",
-          height: "80px",
-          background: "linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1))",
-          borderRadius: "4px"
+          position: "absolute",
+          top: "-2px",
+          left: 0,
+          right: 0,
+          height: "4px",
+          background: "rgba(255,255,255,0.3)",
+          borderRadius: "50%"
         }} />
       </div>
+
+      {/* Current Level Indicator (badge) */}
+      {fillPercent > 0 && (
+        <div style={{
+          position: "absolute",
+          bottom: `${fillPercent}%`,
+          // keep it outside the right edge, but now it won't be clipped
+          right: "-64px",
+          transform: "translateY(50%)",
+          background: "linear-gradient(135deg, #60a5fa, #a78bfa)",
+          color: "#fff",
+          padding: "6px 12px",
+          borderRadius: "8px",
+          fontSize: "14px",
+          fontWeight: "800",
+          lineHeight: 1.1,
+          whiteSpace: "nowrap",
+          boxShadow: "0 6px 16px rgba(0,0,0,0.35)",
+          border: "1px solid rgba(255,255,255,0.35)",
+          zIndex: 5,                 // CHANGED: ensure it’s above everything
+          pointerEvents: "none",     // don’t steal clicks
+          textShadow: "0 1px 2px rgba(0,0,0,0.6)"
+        }}>
+          {/* small arrow pointer */}
+          <span style={{
+            position: "absolute",
+            left: "-6px",
+            top: "50%",
+            transform: "translateY(-50%)",
+            width: 0,
+            height: 0,
+            borderTop: "6px solid transparent",
+            borderBottom: "6px solid transparent",
+            borderRight: "6px solid #7aa5ff"
+          }} />
+          {units} <span style={{ fontWeight: 700 }}>units</span>
+        </div>
+      )}
     </div>
-  );
+
+    {/* Plunger */}
+    <div style={{
+      width: "60px",
+      height: "40px",
+      margin: "10px auto 0",
+      background: "linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0.05))",
+      border: "2px solid rgba(255,255,255,0.2)",
+      borderRadius: "8px 8px 20px 20px",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center"
+    }}>
+      <div style={{
+        width: "20px",
+        height: "80px",
+        background: "linear-gradient(180deg, rgba(255,255,255,0.2), rgba(255,255,255,0.1))",
+        borderRadius: "4px"
+      }} />
+    </div>
+  </div>
+);
+
 
   return (
     <div style={{
