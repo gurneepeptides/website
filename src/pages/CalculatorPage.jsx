@@ -96,18 +96,25 @@ export default function CalculatorPage() {
               bottom: `${mark}%`,
               left: 0,
               right: 0,
-              height: "2px",
-              background: mark % 50 === 0 ? "rgba(255,255,255,0.4)" : "rgba(255,255,255,0.2)",
-              display: "flex",
-              alignItems: "center"
+              height: mark % 10 === 0 ? "3px" : "2px",
+              background: mark % 50 === 0 ? "rgba(255,255,255,0.6)" : "rgba(255,255,255,0.4)",
+              zIndex: 1
             }}
           >
+            {/* Unit Label - styled like real syringe markings */}
             <span style={{
               position: "absolute",
-              left: "-30px",
-              fontSize: "10px",
-              color: "#9ca3af",
-              fontWeight: "600"
+              left: "50%",
+              top: "-2px",
+              transform: "translate(-50%, -100%)",
+              fontSize: "clamp(12px, 2.5vw, 14px)",
+              color: "#f9fafb",
+              fontWeight: "800",
+              textShadow: "0 1px 3px rgba(0,0,0,0.8), 0 0 10px rgba(0,0,0,0.5)",
+              padding: "2px 4px",
+              background: mark % 50 === 0 ? "rgba(96, 165, 250, 0.3)" : "transparent",
+              borderRadius: "3px",
+              whiteSpace: "nowrap"
             }}>
               {mark}
             </span>
