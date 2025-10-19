@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 import CatalogPage from "./pages/CatalogPage";
 import ProductPage from "./pages/ProductPage";
 import StackBuilderPage from "./pages/StackBuilderPage";
+import CalculatorPage from "./pages/CalculatorPage";
 import FAQPage from "./pages/FAQPage";
 import ReviewsPage from "./pages/ReviewsPage";
 import ContactPage from "./pages/ContactPage";
@@ -51,6 +52,7 @@ export default function App() {
         <Route path="/" element={<CatalogPage />} />
         <Route path="/product/:id" element={<ProductPage />} />
         <Route path="/stack-builder" element={<StackBuilderPage />} />
+        <Route path="/calculator" element={<CalculatorPage />} />
         <Route path="/faq" element={<FAQPage />} />
         <Route path="/reviews" element={<ReviewsPage />} />
         <Route path="/contact" element={<ContactPage />} />

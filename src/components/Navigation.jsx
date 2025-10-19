@@ -8,6 +8,7 @@ export default function Navigation() {
   const navLinks = [
     { path: "/", label: "Catalog" },
     { path: "/stack-builder", label: "Stack Builder" },
+    { path: "/calculator", label: "Calculator" },
     { path: "/faq", label: "FAQ" },
     { path: "/reviews", label: "Reviews" },
     { path: "/contact", label: "Contact Us" },
