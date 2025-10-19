@@ -113,12 +113,12 @@ export default function ContactPage() {
                       fontSize: "14px",
                     }}
                   >
-                    contact@gurneepeptides.com
+                    gurneepeptides@gmail.com
                   </a>
                 </div>
               </div>
               <p style={{ margin: "8px 0 0 0", color: "var(--sub)", fontSize: "13px" }}>
-                Response time: Within 24 hours
+                Response time: Within 12 hours
               </p>
             </div>
 
@@ -171,7 +171,7 @@ export default function ContactPage() {
                 <div>
                   <strong>Product Interest</strong>
                   <p style={{ color: "var(--sub)", margin: "4px 0 0 0" }}>
-                    Let us know which product(s) you're interested in and quantities
+                    Let us know which product(s) you're interested in, quantities, and provide us your email
                   </p>
                 </div>
               </div>
