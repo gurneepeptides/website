@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 
 export default function ContactPage() {
+  useLayoutEffect(() => {
+    // ensure we start at the top when opening a product
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, []);
+
   return (
     <div className="page">
       <div className="container-narrow">
@@ -51,7 +56,9 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <h4 style={{ margin: "0 0 4px 0" }}>Facebook Messenger</h4>
-                  <p style={{ margin: 0, color: "var(--sub)", fontSize: "13px" }}>
+                  <p
+                    style={{ margin: 0, color: "var(--sub)", fontSize: "13px" }}
+                  >
                     Fast responses • Order tracking • Real-time support
                   </p>
                 </div>
@@ -117,7 +124,13 @@ export default function ContactPage() {
                   </a>
                 </div>
               </div>
-              <p style={{ margin: "8px 0 0 0", color: "var(--sub)", fontSize: "13px" }}>
+              <p
+                style={{
+                  margin: "8px 0 0 0",
+                  color: "var(--sub)",
+                  fontSize: "13px",
+                }}
+              >
                 Response time: Within 12 hours
               </p>
             </div>
@@ -132,15 +145,25 @@ export default function ContactPage() {
               }}
             >
               <div style={{ display: "grid", gap: "8px" }}>
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
                   <span>Monday - Friday</span>
-                  <span style={{ color: "var(--sub)" }}>9:00 AM - 6:00 PM CT</span>
+                  <span style={{ color: "var(--sub)" }}>
+                    9:00 AM - 6:00 PM CT
+                  </span>
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
                   <span>Saturday</span>
-                  <span style={{ color: "var(--sub)" }}>10:00 AM - 4:00 PM CT</span>
+                  <span style={{ color: "var(--sub)" }}>
+                    10:00 AM - 4:00 PM CT
+                  </span>
                 </div>
-                <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <div
+                  style={{ display: "flex", justifyContent: "space-between" }}
+                >
                   <span>Sunday</span>
                   <span style={{ color: "var(--sub)" }}>Closed</span>
                 </div>
@@ -171,7 +194,8 @@ export default function ContactPage() {
                 <div>
                   <strong>Product Interest</strong>
                   <p style={{ color: "var(--sub)", margin: "4px 0 0 0" }}>
-                    Let us know which product(s) you're interested in, quantities, and provide us your email
+                    Let us know which product(s) you're interested in,
+                    quantities, and provide us your email
                   </p>
                 </div>
               </div>
@@ -198,8 +222,8 @@ export default function ContactPage() {
         <section className="section">
           <div className="hero-disc">
             <strong>Research Use Only:</strong> All products are intended for
-            laboratory research purposes only. Not for human or veterinary use. Not
-            intended to diagnose, treat, cure, or prevent any disease.
+            laboratory research purposes only. Not for human or veterinary use.
+            Not intended to diagnose, treat, cure, or prevent any disease.
           </div>
         </section>
       </div>

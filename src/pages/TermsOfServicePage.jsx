@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 
 export default function TermsOfServicePage() {
+  useLayoutEffect(() => {
+    // ensure we start at the top when opening a product
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, []);
+
   return (
     <div className="page">
       <div className="container-narrow">
@@ -46,10 +51,11 @@ export default function TermsOfServicePage() {
 
             <h2 style={{ marginTop: "24px" }}>4. Product Information</h2>
             <p style={{ color: "var(--sub)", lineHeight: "1.6" }}>
-              We strive to provide accurate product descriptions, specifications,
-              and pricing. However, we do not warrant that product descriptions
-              or other content is accurate, complete, or error-free. We reserve
-              the right to correct errors and update information at any time.
+              We strive to provide accurate product descriptions,
+              specifications, and pricing. However, we do not warrant that
+              product descriptions or other content is accurate, complete, or
+              error-free. We reserve the right to correct errors and update
+              information at any time.
             </p>
 
             <h2 style={{ marginTop: "24px" }}>5. Orders and Payment</h2>
@@ -71,13 +77,15 @@ export default function TermsOfServicePage() {
 
             <h2 style={{ marginTop: "24px" }}>7. Returns and Refunds</h2>
             <p style={{ color: "var(--sub)", lineHeight: "1.6" }}>
-              Due to the nature of research peptides and regulatory requirements,
-              all sales are final. We do not accept returns or provide refunds
-              except in cases of shipping errors or defective products. Claims
-              must be made within 48 hours of delivery.
+              Due to the nature of research peptides and regulatory
+              requirements, all sales are final. We do not accept returns or
+              provide refunds except in cases of shipping errors or defective
+              products. Claims must be made within 48 hours of delivery.
             </p>
 
-            <h2 style={{ marginTop: "24px" }}>8. Product Quality and Testing</h2>
+            <h2 style={{ marginTop: "24px" }}>
+              8. Product Quality and Testing
+            </h2>
             <p style={{ color: "var(--sub)", lineHeight: "1.6" }}>
               We provide third-party Certificates of Analysis (COAs) for our
               products. While we ensure quality control, we make no warranties
@@ -104,9 +112,9 @@ export default function TermsOfServicePage() {
             <h2 style={{ marginTop: "24px" }}>11. Compliance with Laws</h2>
             <p style={{ color: "var(--sub)", lineHeight: "1.6" }}>
               You agree to comply with all applicable local, state, federal, and
-              international laws and regulations regarding the purchase, storage,
-              and use of research peptides. You are solely responsible for
-              ensuring your activities comply with all applicable laws.
+              international laws and regulations regarding the purchase,
+              storage, and use of research peptides. You are solely responsible
+              for ensuring your activities comply with all applicable laws.
             </p>
 
             <h2 style={{ marginTop: "24px" }}>12. Prohibited Uses</h2>

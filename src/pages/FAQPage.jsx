@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 
 export default function FAQPage() {
+  useLayoutEffect(() => {
+    // ensure we start at the top when opening a product
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, []);
+
   const faqs = [
     {
       question: "What are peptides?",

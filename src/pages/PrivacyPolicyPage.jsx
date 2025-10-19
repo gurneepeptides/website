@@ -1,6 +1,11 @@
-import React from "react";
+import React, { useLayoutEffect } from "react";
 
 export default function PrivacyPolicyPage() {
+  useLayoutEffect(() => {
+    // ensure we start at the top when opening a product
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, []);
+
   return (
     <div className="page">
       <div className="container-narrow">
@@ -26,7 +31,9 @@ export default function PrivacyPolicyPage() {
               <li>Payment information (processed securely)</li>
             </ul>
 
-            <h2 style={{ marginTop: "24px" }}>2. How We Use Your Information</h2>
+            <h2 style={{ marginTop: "24px" }}>
+              2. How We Use Your Information
+            </h2>
             <p style={{ color: "var(--sub)", lineHeight: "1.6" }}>
               We use the information we collect to:
             </p>
@@ -115,7 +122,7 @@ export default function PrivacyPolicyPage() {
                   href="mailto:contact@gurneepeptides.com"
                   style={{ color: "var(--accent)" }}
                 >
-                  contact@gurneepeptides.com
+                  gurneepeptides@gmail.com
                 </a>
               </li>
             </ul>
