@@ -29,6 +29,26 @@ const reviews = [
     verified: true,
     photos: ["reviews/3.webp"]
   },
+    {
+    id: 4,
+    name: "Patty Schletz",
+    role: "Researcher",
+    rating: 5,
+    text: "The absolute best! Fast shipping! Customer service is above and beyond!! Love supporting a local business!",
+    date: "October 2025",
+    verified: true,
+    photos: ["reviews/4.webp"]
+  },
+      {
+    id: 5,
+    name: "Pamela Hendzel",
+    role: "Researcher",
+    rating: 5,
+    text: "Ordered a few times and Great customer service and very speedy delivery. Amazing product ",
+    date: "October 2025",
+    verified: true,
+    photos: ["reviews/5.webp"]
+  },
 ];
 
 export default reviews;
