@@ -1,26 +1,73 @@
-import React, { useMemo, useState, useRef, useLayoutEffect } from "react";
+import React, { useMemo, useState, useRef, useLayoutEffect, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import products from "../products.js";
 import { normalizeCatalog } from "../catalog.js";
 
 const Placeholder = "/placeholder.svg";
 
+/** =========================
+ *  GLOBAL PROMO CONFIG
+ *  ========================= */
+const PROMO = {
+  enabled: true,                 // turn the global promo on/off
+  type: "B2G1",                  // "B2G1" | "BOGO" | null
+  isEligible: (p) => true,       // e.g., (p) => p.category === "Metabolic"
+};
+
+const PROMO_STRINGS = {
+  B2G1: "Buy 2, Get 1 FREE — Auto-applied",
+  BOGO: "Buy 1, Get 1 FREE — Auto-applied",
+};
+
+/** =========================
+ *  HELPERS
+ *  ========================= */
 function resolveImg(src) {
   if (!src) return Placeholder;
   if (/^https?:\/\//i.test(src)) return src; // external URL
-  if (src.startsWith("/")) return src; // already root-relative
-  return `/${src}`; // make root-relative
+  if (src.startsWith("/")) return src;       // already root-relative
+  return `/${src}`;                          // make root-relative
 }
 
+function clamp(n, min, max) {
+  return Math.max(min, Math.min(max, n));
+}
+
+function money(n) {
+  return typeof n === "number" && !Number.isNaN(n) ? `$${n.toFixed(2)}` : "—";
+}
+
+// Infer pack quantity from explicit qty or from "X Pack" label
+function inferQty(opt) {
+  if (typeof opt.qty === "number") return opt.qty;
+  const m = String(opt.label || "").match(/(\d+)\s*pack/i);
+  return m ? parseInt(m[1], 10) : 1;
+}
+
+// Determine “unit” price for savings math (prefer a 1-Pack option)
+function getUnitPriceFromOptionsOrProduct(options, product) {
+  const one = options.find((o) => inferQty(o) === 1 && typeof o.price === "number");
+  if (one) return one.price;
+  if (typeof product.price === "number") return product.price;
+  return undefined;
+}
+
+// Compute bonus free units per promo type
+function computeBonus(qty, promoType) {
+  if (promoType === "B2G1") return qty >= 2 ? 1 : 0;
+  if (promoType === "BOGO") return qty >= 1 ? qty : 0;
+  return 0;
+}
+
+/** =========================
+ *  PAGE
+ *  ========================= */
 export default function ProductPage() {
   const { id } = useParams();
 
   // normalize once
   const normalized = useMemo(() => normalizeCatalog(products), []);
-  const product = useMemo(
-    () => normalized.find((p) => p.id === id),
-    [id, normalized]
-  );
+  const product = useMemo(() => normalized.find((p) => p.id === id), [id, normalized]);
 
   useLayoutEffect(() => {
     // ensure we start at the top when opening a product
@@ -41,8 +88,7 @@ export default function ProductPage() {
     );
   }
 
-  // ----- IMAGES / CAROUSEL (new) -----
-  // Build images list from product.images (if present) else fallback to single image
+  // ----- IMAGES / CAROUSEL -----
   const imgs = (
     Array.isArray(product.images) && product.images.length > 0
       ? product.images
@@ -57,18 +103,11 @@ export default function ProductPage() {
   const deltaX = useRef(0);
   const touching = useRef(false);
 
-  function clamp(n, min, max) {
-    return Math.max(min, Math.min(max, n));
-  }
   function goTo(i) {
     setIndex((prev) => clamp(i, 0, imgs.length - 1));
   }
-  function prev() {
-    goTo(index - 1);
-  }
-  function next() {
-    goTo(index + 1);
-  }
+  function prev() { goTo(index - 1); }
+  function next() { goTo(index + 1); }
 
   function onTouchStart(e) {
     touching.current = true;
@@ -80,9 +119,7 @@ export default function ProductPage() {
     deltaX.current = e.touches[0].clientX - startX.current;
     if (trackRef.current) {
       trackRef.current.style.transition = "none";
-      trackRef.current.style.transform = `translateX(calc(${-index * 100}% + ${
-        deltaX.current
-      }px))`;
+      trackRef.current.style.transform = `translateX(calc(${-index * 100}% + ${deltaX.current}px))`;
     }
   }
   function onTouchEnd() {
@@ -109,7 +146,18 @@ export default function ProductPage() {
     Array.isArray(product.options) && product.options.length > 0
       ? product.options
       : [];
+
+  const unitPrice = useMemo(
+    () => getUnitPriceFromOptionsOrProduct(options, product),
+    [options, product]
+  );
+
   const [selected, setSelected] = useState(options[0]?.id);
+  useEffect(() => {
+    if (!options.find((o) => o.id === selected)) {
+      setSelected(options[0]?.id);
+    }
+  }, [options, selected]);
 
   // ----- PURCHASE fallbacks -----
   const purchaseHeadline = product.purchase?.headline || "How to Purchase";
@@ -156,11 +204,7 @@ export default function ProductPage() {
                 onTouchEnd={onTouchEnd}
               >
                 {imgs.map((src, i) => (
-                  <div
-                    className="carousel-slide"
-                    key={i}
-                    aria-hidden={i !== index}
-                  >
+                  <div className="carousel-slide" key={i} aria-hidden={i !== index}>
                     <img src={src} alt={`${product.name} ${i + 1}`} />
                   </div>
                 ))}
@@ -187,28 +231,6 @@ export default function ProductPage() {
                 </>
               )}
             </div>
-
-            {imgs.length > 1 && (
-              <div
-                className="carousel-thumbs"
-                role="tablist"
-                aria-label="Image thumbnails"
-              >
-                {imgs.map((src, i) => (
-                  <button
-                    key={i}
-                    type="button"
-                    role="tab"
-                    aria-selected={i === index}
-                    className={`carousel-thumb ${i === index ? "active" : ""}`}
-                    onClick={() => goTo(i)}
-                    title={`Image ${i + 1}`}
-                  >
-                    <img src={src} alt={`Thumb ${i + 1}`} />
-                  </button>
-                ))}
-              </div>
-            )}
           </div>
 
           <div>
@@ -220,9 +242,14 @@ export default function ProductPage() {
 
             <p className="hero-desc">{product.description}</p>
 
+            {PROMO.enabled && PROMO.type && PROMO.isEligible(product) && (
+              <div className="hero-promo" style={{ marginTop: 8, color: "var(--accent)" }}>
+                🎃 {PROMO_STRINGS[PROMO.type]}
+              </div>
+            )}
+
             <div className="hero-disc">
-              ⚠️ For Research Use Only • Not for Human Use • No medical benefit
-              suggested.
+              ⚠️ For Research Use Only • Not for Human Use • No medical benefit suggested.
             </div>
           </div>
         </div>
@@ -234,6 +261,42 @@ export default function ProductPage() {
         <div className="options">
           {options.map((opt) => {
             const isSelected = selected === opt.id;
+            const qty = inferQty(opt);
+
+            // Promo reflection: add FREE units, keep price the same
+            let bonus = 0;
+            if (PROMO.enabled && PROMO.type && PROMO.isEligible(product)) {
+              bonus = computeBonus(qty, PROMO.type);
+            }
+            const totalUnits = qty + bonus;
+
+            // Optional savings line (only if we can infer a unit price cleanly)
+            let savingsText = "";
+            if (unitPrice && bonus > 0 && typeof opt.price === "number") {
+              const valueWithoutPromo = unitPrice * totalUnits;
+              const savings = valueWithoutPromo - opt.price;
+              if (savings > 0.009) {
+                savingsText = ` • Save ${money(savings)}`;
+              }
+            }
+
+            // Bonus phrase
+            let bonusText = "";
+            if (bonus > 0) {
+              if (PROMO.type === "B2G1") {
+                // e.g., Pay for 2 • Get 3
+                bonusText = `• Pay for ${qty} • Get ${totalUnits}`;
+              } else if (PROMO.type === "BOGO") {
+                // e.g., Pay for 2 • Get 4
+                bonusText = `• Pay for ${qty} • Get ${totalUnits}`;
+              }
+            }
+
+            // Badge (keep existing if present)
+            const badge =
+              opt.badge ||
+              (bonus > 0 ? (PROMO.type === "B2G1" ? "B2G1 FREE" : "BOGO") : null);
+
             return (
               <div
                 key={opt.id}
@@ -247,28 +310,32 @@ export default function ProductPage() {
                 <div>
                   <div className="title">
                     {opt.label}
-                    {opt.badge && (
+                    {badge && (
                       <span
                         className={`badge ${
-                          opt.badge.includes("BEST") ? "blue" : "gray"
+                          String(badge).toUpperCase().includes("BEST") ? "blue" : "gray"
                         }`}
+                        style={{ marginLeft: 8 }}
                       >
-                        {opt.badge}
+                        {badge}
                       </span>
                     )}
                   </div>
-                  <div className="sub">{product.name}</div>
+                  <div className="sub">
+                    {product.name}
+                    {bonus > 0 ? ` • Receive ${totalUnits} total ${totalUnits > 1 ? "vials" : "vial"}` : ""}
+                    {bonusText ? ` ${bonusText}` : ""}
+                    {savingsText}
+                  </div>
                 </div>
 
                 <div className="right">
                   <div className="price">
-                    {typeof opt.price === "number"
-                      ? `$${opt.price.toFixed(2)}`
-                      : "—"}
+                    {typeof opt.price === "number" ? money(opt.price) : "—"}
                   </div>
                   {typeof opt.compareAt === "number" &&
                     opt.compareAt > (opt.price ?? 0) && (
-                      <div className="compare">${opt.compareAt.toFixed(2)}</div>
+                      <div className="compare">{money(opt.compareAt)}</div>
                     )}
                 </div>
               </div>
@@ -277,7 +344,7 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* PURCHASE INSTRUCTIONS (safer + full-width) */}
+      {/* PURCHASE INSTRUCTIONS (full-width) */}
       <section className="section">
         <div className="purchase-box">
           <h3>{purchaseHeadline}</h3>
@@ -306,7 +373,7 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* CTA (converted to Message button) */}
+      {/* CTA */}
       <section className="cta-row">
         <a
           href={purchaseFacebook}

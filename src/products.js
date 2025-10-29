@@ -434,7 +434,7 @@ const products = [
   },
   {
     id: "CJCIPA-10",
-    name: "CJC-1295 + Ipamorelin 10mg",
+    name: "CJC-1295 + Ipa 10mg",
     dosage: "10 mg (5 mg + 5 mg)",
     volume: "3 mL",
     category: "GH Axis",
