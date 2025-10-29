@@ -11,12 +11,52 @@ import ReviewsPage from "./pages/ReviewsPage";
 import ContactPage from "./pages/ContactPage";
 import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
+import AdminPage from "./pages/AdminPage";
 
 function TopBar() {
+  const [message, setMessage] = React.useState("");
+
+  React.useEffect(() => {
+    const loadMessage = () => {
+      const savedMessage = localStorage.getItem("topBarMessage");
+      if (savedMessage) {
+        setMessage(savedMessage);
+      } else {
+        setMessage(
+          `🎃 Buy 2, Get 1 FREE — Halloween Sale Live! 
+🚚 Same-Day Shipping on orders confirmed before 3PM CT • For Research Use Only 
+⚙️ Site is undergoing changes`
+        );
+      }
+    };
+
+    loadMessage();
+
+    // Listen for storage changes (when admin updates)
+    const handleStorageChange = (e) => {
+      if (e.key === "topBarMessage") {
+        loadMessage();
+      }
+    };
+
+    window.addEventListener("storage", handleStorageChange);
+    
+    // Also listen for custom event for same-tab updates
+    const handleCustomUpdate = () => {
+      loadMessage();
+    };
+    
+    window.addEventListener("topBarUpdate", handleCustomUpdate);
+
+    return () => {
+      window.removeEventListener("storage", handleStorageChange);
+      window.removeEventListener("topBarUpdate", handleCustomUpdate);
+    };
+  }, []);
+
   return (
-    <div className="topbar">
-      🚚 <strong>Same-Day Shipping</strong> on orders confirmed before 3PM CT •
-      For Research Use Only <br/> Site is undergoing changes 
+    <div className="topbar" style={{ whiteSpace: "pre-line" }}>
+      {message}
     </div>
   );
 }
@@ -58,6 +98,7 @@ export default function App() {
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/privacy-policy" element={<PrivacyPolicyPage />} />
         <Route path="/terms-of-service" element={<TermsOfServicePage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<CatalogPage />} />
       </Routes>
       <Footer />

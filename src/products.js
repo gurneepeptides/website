@@ -1,3 +1,17 @@
+// Helper function to get price from localStorage or default
+const getPrice = (productId, defaultPrice) => {
+  const savedPrices = localStorage.getItem("productPrices");
+  if (savedPrices) {
+    try {
+      const prices = JSON.parse(savedPrices);
+      return prices[productId] !== undefined ? prices[productId] : defaultPrice;
+    } catch (e) {
+      return defaultPrice;
+    }
+  }
+  return defaultPrice;
+};
+
 const products = [
   {
     id: "RET-10",
@@ -466,6 +480,11 @@ const products = [
     description:
       "PT-141, also known as Bremelanotide, is a peptide studied for its effects on sexual function and arousal pathways. Unlike compounds that act on the vascular system, PT-141 works through the central nervous system, where research has shown it can activate melanocortin receptors involved in sexual desire and performance. Studies suggest potential benefits in both men and women, making PT-141 a key compound in research on libido, arousal, and neurological control of sexual function. Each vial is lab-tested for purity and consistency to ensure reliable results in controlled research settings.",
   },
-];
+].map(product => ({
+  ...product,
+  get price() {
+    return getPrice(this.id, product.price);
+  }
+}));
 
 export default products;
