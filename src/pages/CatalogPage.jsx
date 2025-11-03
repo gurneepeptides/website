@@ -1,6 +1,7 @@
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import products from "../products.js";
+// ⬇️ remove static import and fetch from server
+// import products from "../products.js";
 import { normalizeCatalog } from "../catalog.js";
 
 const Placeholder = "/placeholder.svg";
@@ -9,8 +10,35 @@ export default function CatalogPage() {
   const [q, setQ] = useState("");
   const [activeCat, setActiveCat] = useState("All");
 
-  // Normalize once (e.g., image paths, safe defaults)
-  const normalized = useMemo(() => normalizeCatalog(products), []);
+  // ⬇️ NEW: fetch products from server
+  const [serverProducts, setServerProducts] = useState([]);
+
+  useEffect(() => {
+    let mounted = true;
+    (async () => {
+      try {
+        const res = await fetch("/api/products");
+        if (res.ok) {
+          const { items } = await res.json();
+          if (mounted) setServerProducts(items || []);
+          // Optional: keep localStorage prices in sync for legacy getters elsewhere
+          try {
+            const priceMap = {};
+            (items || []).forEach(p => { priceMap[p.id] = Number(p.price) || 0; });
+            localStorage.setItem("productPrices", JSON.stringify(priceMap));
+          } catch {}
+        } else {
+          setServerProducts([]); // fallback: empty
+        }
+      } catch {
+        setServerProducts([]); // offline/error fallback
+      }
+    })();
+    return () => { mounted = false; };
+  }, []);
+
+  // Normalize once server data arrives (e.g., image paths, safe defaults)
+  const normalized = useMemo(() => normalizeCatalog(serverProducts), [serverProducts]);
 
   // Build category list with counts (mobile-first)
   const categories = useMemo(() => {
@@ -19,7 +47,6 @@ export default function CatalogPage() {
       acc[cat] = (acc[cat] || 0) + 1;
       return acc;
     }, {});
-    // Turn into array like [{name:'GLP-Class', count: 3}, ...]
     return Object.entries(counts).map(([name, count]) => ({ name, count }));
   }, [normalized]);
 

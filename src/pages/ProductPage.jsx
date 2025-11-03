@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useRef, useLayoutEffect, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
-import products from "../products.js";
 import { normalizeCatalog } from "../catalog.js";
 
 const Placeholder = "/placeholder.svg";
@@ -9,9 +8,9 @@ const Placeholder = "/placeholder.svg";
  *  GLOBAL PROMO CONFIG
  *  ========================= */
 const PROMO = {
-  enabled: true,                 // turn the global promo on/off
-  type: "B2G1",                  // "B2G1" | "BOGO" | null
-  isEligible: (p) => true,       // e.g., (p) => p.category === "Metabolic"
+  enabled: true,
+  type: "B2G1",
+  isEligible: (p) => true,
 };
 
 const PROMO_STRINGS = {
@@ -24,9 +23,9 @@ const PROMO_STRINGS = {
  *  ========================= */
 function resolveImg(src) {
   if (!src) return Placeholder;
-  if (/^https?:\/\//i.test(src)) return src; // external URL
-  if (src.startsWith("/")) return src;       // already root-relative
-  return `/${src}`;                          // make root-relative
+  if (/^https?:\/\//i.test(src)) return src;
+  if (src.startsWith("/")) return src;
+  return `/${src}`;
 }
 
 function clamp(n, min, max) {
@@ -37,14 +36,12 @@ function money(n) {
   return typeof n === "number" && !Number.isNaN(n) ? `$${n.toFixed(2)}` : "—";
 }
 
-// Infer pack quantity from explicit qty or from "X Pack" label
 function inferQty(opt) {
   if (typeof opt.qty === "number") return opt.qty;
   const m = String(opt.label || "").match(/(\d+)\s*pack/i);
   return m ? parseInt(m[1], 10) : 1;
 }
 
-// Determine “unit” price for savings math (prefer a 1-Pack option)
 function getUnitPriceFromOptionsOrProduct(options, product) {
   const one = options.find((o) => inferQty(o) === 1 && typeof o.price === "number");
   if (one) return one.price;
@@ -52,7 +49,6 @@ function getUnitPriceFromOptionsOrProduct(options, product) {
   return undefined;
 }
 
-// Compute bonus free units per promo type
 function computeBonus(qty, promoType) {
   if (promoType === "B2G1") return qty >= 2 ? 1 : 0;
   if (promoType === "BOGO") return qty >= 1 ? qty : 0;
@@ -65,37 +61,54 @@ function computeBonus(qty, promoType) {
 export default function ProductPage() {
   const { id } = useParams();
 
-  // normalize once
-  const normalized = useMemo(() => normalizeCatalog(products), []);
-  const product = useMemo(() => normalized.find((p) => p.id === id), [id, normalized]);
+  // Fetch product from server
+  const [serverProduct, setServerProduct] = useState(null);
+  const [loadErr, setLoadErr] = useState("");
+
+  useEffect(() => {
+    let alive = true;
+    (async () => {
+      try {
+        const res = await fetch(`/api/products/${encodeURIComponent(id)}`);
+        if (!res.ok) {
+          setLoadErr(res.status === 404 ? "notfound" : "error");
+          if (alive) setServerProduct(null);
+          return;
+        }
+        const { item } = await res.json();
+        if (alive) setServerProduct(item || null);
+      } catch {
+        setLoadErr("error");
+        if (alive) setServerProduct(null);
+      }
+    })();
+    return () => {
+      alive = false;
+    };
+  }, [id]);
+
+  // Normalize when product arrives
+  const product = useMemo(() => {
+    if (!serverProduct) return null;
+
+    console.log('server prdouct: ', serverProduct)
+    const [norm] = normalizeCatalog([serverProduct]);
+    return norm;
+  }, [serverProduct]);
 
   useLayoutEffect(() => {
-    // ensure we start at the top when opening a product
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
   }, [id]);
 
-  if (!product) {
-    return (
-      <div className="page container-narrow">
-        <h2>Product not found</h2>
-        <p style={{ color: "var(--sub)" }}>
-          The item you’re looking for isn’t in the catalog.
-        </p>
-        <Link to="/" style={{ color: "var(--accent)" }}>
-          ← Back to catalog
-        </Link>
-      </div>
-    );
-  }
-
-  // ----- IMAGES / CAROUSEL -----
-  const imgs = (
-    Array.isArray(product.images) && product.images.length > 0
-      ? product.images
-      : [product.image || Placeholder]
-  )
-    .filter(Boolean)
-    .map(resolveImg);
+  // ===== Hooks that must always run =====
+  const imgs = useMemo(() => {
+    const arr = product
+      ? (Array.isArray(product.images) && product.images.length > 0
+          ? product.images
+          : [product?.image || Placeholder])
+      : [Placeholder];
+    return arr.filter(Boolean).map(resolveImg);
+  }, [product]);
 
   const [index, setIndex] = useState(0);
   const trackRef = useRef(null);
@@ -106,8 +119,12 @@ export default function ProductPage() {
   function goTo(i) {
     setIndex((prev) => clamp(i, 0, imgs.length - 1));
   }
-  function prev() { goTo(index - 1); }
-  function next() { goTo(index + 1); }
+  function prev() {
+    goTo(index - 1);
+  }
+  function next() {
+    goTo(index + 1);
+  }
 
   function onTouchStart(e) {
     touching.current = true;
@@ -141,42 +158,45 @@ export default function ProductPage() {
     if (e.key === "ArrowRight") next();
   }
 
-  // ----- OPTIONS -----
-  const options =
-    Array.isArray(product.options) && product.options.length > 0
-      ? product.options
-      : [];
-
-  const unitPrice = useMemo(
-    () => getUnitPriceFromOptionsOrProduct(options, product),
-    [options, product]
-  );
+  const options = useMemo(() => (product && Array.isArray(product.options) ? product.options : []), [product]);
+  const unitPrice = useMemo(() => getUnitPriceFromOptionsOrProduct(options, product || {}), [options, product]);
 
   const [selected, setSelected] = useState(options[0]?.id);
   useEffect(() => {
-    if (!options.find((o) => o.id === selected)) {
-      setSelected(options[0]?.id);
-    }
+    if (!options.find((o) => o.id === selected)) setSelected(options[0]?.id);
   }, [options, selected]);
 
-  // ----- PURCHASE fallbacks -----
+  // ===== Safe early returns =====
+  if (!product) {
+    if (loadErr === "notfound") {
+      return (
+        <div className="page container-narrow">
+          <h2>Product not found</h2>
+          <p style={{ color: "var(--sub)" }}>The item you’re looking for isn’t in the catalog.</p>
+          <Link to="/" style={{ color: "var(--accent)" }}>
+            ← Back to catalog
+          </Link>
+        </div>
+      );
+    }
+    return (
+      <div className="page container-narrow">
+        <p style={{ color: "var(--sub)" }}>Loading…</p>
+      </div>
+    );
+  }
+
+  // ===== Page Rendering =====
   const purchaseHeadline = product.purchase?.headline || "How to Purchase";
-  const purchaseFacebook =
-    product.purchase?.facebook || "https://facebook.com/gurneepeptides";
+  const purchaseFacebook = product.purchase?.facebook || "https://facebook.com/gurneepeptides";
   const purchaseNote =
     product.purchase?.note ||
     "Message us on Facebook to purchase. If unavailable, email us directly at gurneepeptides@gmail.com";
 
-  // ----- FAQ fallback -----
   const faqs = Array.isArray(product.faq) ? product.faq : [];
 
   return (
-    <div
-      className="page container-narrow"
-      onKeyDown={onKeyDown}
-      tabIndex={0}
-      style={{ outline: "none" }}
-    >
+    <div className="page container-narrow" onKeyDown={onKeyDown} tabIndex={0} style={{ outline: "none" }}>
       <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
         <Link to="/" style={{ color: "var(--accent)", textDecoration: "none" }}>
           ← Back
@@ -186,15 +206,11 @@ export default function ProductPage() {
         </span>
       </div>
 
-      {/* HERO (with carousel) */}
+      {/* HERO */}
       <section className="hero-card">
         <div className="hero-inner">
           <div>
-            <div
-              className="carousel"
-              aria-roledescription="carousel"
-              aria-label={`${product.name} images`}
-            >
+            <div className="carousel" aria-roledescription="carousel" aria-label={`${product.name} images`}>
               <div
                 ref={trackRef}
                 className="carousel-track"
@@ -212,20 +228,10 @@ export default function ProductPage() {
 
               {imgs.length > 1 && (
                 <>
-                  <button
-                    className="carousel-arrow left"
-                    type="button"
-                    onClick={prev}
-                    aria-label="Previous image"
-                  >
+                  <button className="carousel-arrow left" type="button" onClick={prev} aria-label="Previous image">
                     ‹
                   </button>
-                  <button
-                    className="carousel-arrow right"
-                    type="button"
-                    onClick={next}
-                    aria-label="Next image"
-                  >
+                  <button className="carousel-arrow right" type="button" onClick={next} aria-label="Next image">
                     ›
                   </button>
                 </>
@@ -236,8 +242,7 @@ export default function ProductPage() {
           <div>
             <h1 className="hero-title">{product.name}</h1>
             <div className="hero-meta">
-              {[product.dosage, product.volume].filter(Boolean).join(" • ") ||
-                "Specs forthcoming"}
+              {[product.dosage, product.volume].filter(Boolean).join(" • ") || "Specs forthcoming"}
             </div>
 
             <p className="hero-desc">{product.description}</p>
@@ -261,16 +266,15 @@ export default function ProductPage() {
         <div className="options">
           {options.map((opt) => {
             const isSelected = selected === opt.id;
+            console.log('promo: ', opt)
             const qty = inferQty(opt);
 
-            // Promo reflection: add FREE units, keep price the same
             let bonus = 0;
             if (PROMO.enabled && PROMO.type && PROMO.isEligible(product)) {
               bonus = computeBonus(qty, PROMO.type);
             }
             const totalUnits = qty + bonus;
 
-            // Optional savings line (only if we can infer a unit price cleanly)
             let savingsText = "";
             if (unitPrice && bonus > 0 && typeof opt.price === "number") {
               const valueWithoutPromo = unitPrice * totalUnits;
@@ -280,22 +284,13 @@ export default function ProductPage() {
               }
             }
 
-            // Bonus phrase
             let bonusText = "";
             if (bonus > 0) {
-              if (PROMO.type === "B2G1") {
-                // e.g., Pay for 2 • Get 3
-                bonusText = `• Pay for ${qty} • Get ${totalUnits}`;
-              } else if (PROMO.type === "BOGO") {
-                // e.g., Pay for 2 • Get 4
-                bonusText = `• Pay for ${qty} • Get ${totalUnits}`;
-              }
+              bonusText = `• Pay for ${qty} • Get ${totalUnits}`;
             }
 
-            // Badge (keep existing if present)
             const badge =
-              opt.badge ||
-              (bonus > 0 ? (PROMO.type === "B2G1" ? "B2G1 FREE" : "BOGO") : null);
+              opt.badge || (bonus > 0 ? (PROMO.type === "B2G1" ? "B2G1 FREE" : "BOGO") : null);
 
             return (
               <div
@@ -323,7 +318,9 @@ export default function ProductPage() {
                   </div>
                   <div className="sub">
                     {product.name}
-                    {bonus > 0 ? ` • Receive ${totalUnits} total ${totalUnits > 1 ? "vials" : "vial"}` : ""}
+                    {bonus > 0
+                      ? ` • Receive ${totalUnits} total ${totalUnits > 1 ? "vials" : "vial"}`
+                      : ""}
                     {bonusText ? ` ${bonusText}` : ""}
                     {savingsText}
                   </div>
@@ -331,12 +328,15 @@ export default function ProductPage() {
 
                 <div className="right">
                   <div className="price">
-                    {typeof opt.price === "number" ? money(opt.price) : "—"}
+                    {typeof opt.price === "number"
+                      ? money(opt.price)
+                      : product.price
+                      ? money(product.price)
+                      : "—"}
                   </div>
-                  {typeof opt.compareAt === "number" &&
-                    opt.compareAt > (opt.price ?? 0) && (
-                      <div className="compare">{money(opt.compareAt)}</div>
-                    )}
+                  {typeof opt.compareAt === "number" && opt.compareAt > (opt.price ?? 0) && (
+                    <div className="compare">{money(opt.compareAt)}</div>
+                  )}
                 </div>
               </div>
             );
@@ -344,7 +344,7 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* PURCHASE INSTRUCTIONS (full-width) */}
+      {/* PURCHASE */}
       <section className="section">
         <div className="purchase-box">
           <h3>{purchaseHeadline}</h3>

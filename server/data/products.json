@@ -1,0 +1,914 @@
+[
+  {
+    "id": "RET-10",
+    "name": "Retatrutide 10mg",
+    "dosage": "10 mg",
+    "volume": "3 mL",
+    "category": "Metabolic",
+    "price": 40,
+    "image": "products/reta10mg.webp",
+    "images": [
+      "products/reta10mg.webp",
+      "coas/reta10.png"
+    ],
+    "tags": [
+      "popular"
+    ],
+    "researchGoals": [
+      "weight-management",
+      "metabolism",
+      "appetite-control"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Multi-receptor GLP agonist",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "MOTSC-10mg",
+      "NAD-500mg"
+    ],
+    "purchase": {
+      "headline": "How to Purchase",
+      "facebook": "https://www.facebook.com/people/Gurnee-Peptides/61580797282365/#",
+      "email": "gurneepeptides@gmail.com",
+      "note": "Message us on Facebook to purchase. If unavailable, email us directly."
+    },
+    "faq": [
+      {
+        "q": "Is this product ready to ship?",
+        "a": "Most items are in stock; message us to secure yours."
+      },
+      {
+        "q": "Do you offer bulk pricing?",
+        "a": "Yes—include expected quantities in your message/email for a quote."
+      },
+      {
+        "q": "How does the purchase process work?",
+        "a": "Customers can message us on Facebook (preferred) or email us with the items they’d like to purchase. We will then send an invoice by email, and payment can be made securely using their preferred method. Orders placed before 3 PM ship the same day, with exceptions on weekends."
+      }
+    ],
+    "description": "Retatrutide is a multi-receptor GLP research compound studied for its potential in supporting weight management, metabolic balance, and blood sugar control. Early research has shown promising effects on reducing appetite, improving insulin sensitivity, and promoting overall metabolic health. Each vial is lab-tested for purity, providing researchers with a consistent foundation for advanced metabolic studies."
+  },
+  {
+    "id": "RET-15",
+    "name": "Retatrutide 15mg",
+    "dosage": "15 mg",
+    "volume": "3 mL",
+    "category": "Metabolic",
+    "price": 55,
+    "image": "products/reta15mg.webp",
+    "images": [
+      "products/reta15mg.webp",
+      "coas/reta10.png"
+    ],
+    "tags": [
+      "popular"
+    ],
+    "researchGoals": [
+      "weight-management",
+      "metabolism",
+      "appetite-control"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Multi-receptor GLP agonist",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "MOTSC-10mg",
+      "NAD-500mg"
+    ],
+    "description": "Retatrutide is a multi-receptor GLP research compound studied for its potential in supporting weight management, metabolic balance, and blood sugar control. Early research has shown promising effects on reducing appetite, improving insulin sensitivity, and promoting overall metabolic health. Each vial is lab-tested for purity, providing researchers with a consistent foundation for advanced metabolic studies."
+  },
+  {
+    "id": "RET-20",
+    "name": "Retatrutide 20mg",
+    "dosage": "20 mg",
+    "volume": "3 mL",
+    "category": "Metabolic",
+    "price": 70,
+    "image": "products/reta20mg.webp",
+    "images": [
+      "products/reta20mg.webp",
+      "coas/reta10.png"
+    ],
+    "tags": [
+      ""
+    ],
+    "researchGoals": [
+      "weight-management",
+      "metabolism",
+      "appetite-control"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Multi-receptor GLP agonist",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "MOTSC-10mg",
+      "NAD-500mg"
+    ],
+    "description": "Retatrutide is a multi-receptor GLP research compound studied for its potential in supporting weight management, metabolic balance, and blood sugar control. Early research has shown promising effects on reducing appetite, improving insulin sensitivity, and promoting overall metabolic health. Each vial is lab-tested for purity, providing researchers with a consistent foundation for advanced metabolic studies."
+  },
+  {
+    "id": "RET-30",
+    "name": "Retatrutide 30mg",
+    "dosage": "30 mg",
+    "volume": "3 mL",
+    "category": "Metabolic",
+    "price": 95,
+    "image": "products/reta30.webp",
+    "images": [
+      "products/reta30.webp",
+      "coas/reta10.png"
+    ],
+    "tags": [
+      ""
+    ],
+    "researchGoals": [
+      "weight-management",
+      "metabolism",
+      "appetite-control"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Multi-receptor GLP agonist",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "MOTSC-10mg",
+      "NAD-500mg"
+    ],
+    "description": "Retatrutide is a multi-receptor GLP research compound studied for its potential in supporting weight management, metabolic balance, and blood sugar control. Early research has shown promising effects on reducing appetite, improving insulin sensitivity, and promoting overall metabolic health. Each vial is lab-tested for purity, providing researchers with a consistent foundation for advanced metabolic studies."
+  },
+  {
+    "id": "TIRZ-10",
+    "name": "Tirzepatide 10mg",
+    "dosage": "10 mg",
+    "volume": "3 mL",
+    "category": "Metabolic",
+    "price": 35,
+    "image": "products/tirz10mg.webp",
+    "images": [
+      "products/tirz10mg.webp",
+      "coas/tirz10coa.png"
+    ],
+    "tags": [
+      "new"
+    ],
+    "researchGoals": [
+      "weight-management",
+      "metabolism",
+      "appetite-control"
+    ],
+    "experienceLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Dual GIP/GLP-1 receptor agonist",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "Cagri-5g",
+      "MOTSC-10mg"
+    ],
+    "description": "Tirzepatide is a dual GIP and GLP-1 receptor agonist widely studied for its role in weight reduction and glucose regulation. Research has shown significant improvements in appetite control, insulin sensitivity, and metabolic function, making it one of the most promising compounds in modern metabolic research. Each vial is lab-tested for purity and consistency, giving researchers a reliable tool for advancing studies in metabolic health."
+  },
+  {
+    "id": "TIRZ-15",
+    "name": "Tirzepatide 15mg",
+    "dosage": "15 mg",
+    "volume": "3 mL",
+    "category": "Metabolic",
+    "price": 45,
+    "image": "products/tirz15mg.webp",
+    "images": [
+      "products/tirz15mg.webp",
+      "coas/tirz10coa.png"
+    ],
+    "tags": [
+      "new"
+    ],
+    "researchGoals": [
+      "weight-management",
+      "metabolism",
+      "appetite-control"
+    ],
+    "experienceLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Dual GIP/GLP-1 receptor agonist",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "Cagri-5g",
+      "MOTSC-10mg"
+    ],
+    "description": "Tirzepatide is a dual GIP and GLP-1 receptor agonist widely studied for its role in weight reduction and glucose regulation. Research has shown significant improvements in appetite control, insulin sensitivity, and metabolic function, making it one of the most promising compounds in modern metabolic research. Each vial is lab-tested for purity and consistency, giving researchers a reliable tool for advancing studies in metabolic health."
+  },
+  {
+    "id": "TIRZ-20",
+    "name": "Tirzepatide 20mg",
+    "dosage": "20 mg",
+    "volume": "3 mL",
+    "category": "Metabolic",
+    "price": 65,
+    "image": "products/tirz20.webp",
+    "images": [
+      "products/tirz20mg.webp",
+      "coas/tirz10coa.png"
+    ],
+    "tags": [
+      "new"
+    ],
+    "researchGoals": [
+      "weight-management",
+      "metabolism",
+      "appetite-control"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Dual GIP/GLP-1 receptor agonist",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "Cagri-5g",
+      "MOTSC-10mg"
+    ],
+    "description": "Tirzepatide is a dual GIP and GLP-1 receptor agonist widely studied for its role in weight reduction and glucose regulation. Research has shown significant improvements in appetite control, insulin sensitivity, and metabolic function, making it one of the most promising compounds in modern metabolic research. Each vial is lab-tested for purity and consistency, giving researchers a reliable tool for advancing studies in metabolic health."
+  },
+  {
+    "id": "TIRZ-30",
+    "name": "Tirzepatide 30mg",
+    "dosage": "30 mg",
+    "volume": "3 mL",
+    "category": "Metabolic",
+    "price": 75,
+    "image": "products/tirz30mg.webp",
+    "images": [
+      "products/tirz30mg.webp",
+      "coas/tirz10coa.png"
+    ],
+    "tags": [
+      "new"
+    ],
+    "researchGoals": [
+      "weight-management",
+      "metabolism",
+      "appetite-control"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Dual GIP/GLP-1 receptor agonist",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "Cagri-5g",
+      "MOTSC-10mg"
+    ],
+    "description": "Tirzepatide is a dual GIP and GLP-1 receptor agonist widely studied for its role in weight reduction and glucose regulation. Research has shown significant improvements in appetite control, insulin sensitivity, and metabolic function, making it one of the most promising compounds in modern metabolic research. Each vial is lab-tested for purity and consistency, giving researchers a reliable tool for advancing studies in metabolic health."
+  },
+  {
+    "id": "TIRZ-50",
+    "name": "Tirzepatide 50mg",
+    "dosage": "50 mg",
+    "volume": "3 mL",
+    "category": "Metabolic",
+    "price": 85,
+    "image": "products/tirz50.webp",
+    "images": [
+      "products/tirz50.webp",
+      "coas/tirz10coa.png"
+    ],
+    "tags": [
+      "new"
+    ],
+    "researchGoals": [
+      "weight-management",
+      "metabolism",
+      "appetite-control"
+    ],
+    "experienceLevel": [
+      "advanced"
+    ],
+    "mechanism": "Dual GIP/GLP-1 receptor agonist",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "Cagri-5g",
+      "MOTSC-10mg"
+    ],
+    "description": "Tirzepatide is a dual GIP and GLP-1 receptor agonist widely studied for its role in weight reduction and glucose regulation. Research has shown significant improvements in appetite control, insulin sensitivity, and metabolic function, making it one of the most promising compounds in modern metabolic research. Each vial is lab-tested for purity and consistency, giving researchers a reliable tool for advancing studies in metabolic health."
+  },
+  {
+    "id": "TIRZ-60",
+    "name": "Tirzepatide 60mg",
+    "dosage": "60 mg",
+    "volume": "3 mL",
+    "category": "Metabolic",
+    "price": 95,
+    "image": "products/tirz60.webp",
+    "images": [
+      "products/tirz60.webp",
+      "coas/tirz10coa.png"
+    ],
+    "tags": [
+      "new"
+    ],
+    "researchGoals": [
+      "weight-management",
+      "metabolism",
+      "appetite-control"
+    ],
+    "experienceLevel": [
+      "advanced"
+    ],
+    "mechanism": "Dual GIP/GLP-1 receptor agonist",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "Cagri-5g",
+      "MOTSC-10mg"
+    ],
+    "description": "Tirzepatide is a dual GIP and GLP-1 receptor agonist widely studied for its role in weight reduction and glucose regulation. Research has shown significant improvements in appetite control, insulin sensitivity, and metabolic function, making it one of the most promising compounds in modern metabolic research. Each vial is lab-tested for purity and consistency, giving researchers a reliable tool for advancing studies in metabolic health."
+  },
+  {
+    "id": "BAC-10ML",
+    "name": "BAC Water 10ml",
+    "volume": "10 mL",
+    "category": "Research Supplies",
+    "price": 12,
+    "image": "products/bac10.webp",
+    "tags": [],
+    "researchGoals": [],
+    "experienceLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Research supply",
+    "confidenceRating": 5,
+    "synergiesWith": [],
+    "description": "Bacteriostatic Water (BAC Water) is sterile, non-pyrogenic water containing 0.9% benzyl alcohol. It is commonly used in research for reconstituting lyophilized compounds, allowing for accurate preparation and storage of test materials. Its bacteriostatic properties help inhibit bacterial growth, making it suitable for repeated withdrawals under controlled research conditions."
+  },
+  {
+    "id": "HOSPIRA-30ML",
+    "name": "Hospira 30ml",
+    "volume": "30 mL",
+    "category": "Research Supplies",
+    "price": 30,
+    "image": "products/hospira.webp",
+    "tags": [],
+    "researchGoals": [],
+    "experienceLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Research supply",
+    "confidenceRating": 5,
+    "synergiesWith": [],
+    "description": "Hospira Water (BAC Water) is sterile, non-pyrogenic water containing 0.9% benzyl alcohol. It is commonly used in research for reconstituting lyophilized compounds, allowing for accurate preparation and storage of test materials. Its bacteriostatic properties help inhibit bacterial growth, making it suitable for repeated withdrawals under controlled research conditions."
+  },
+  {
+    "id": "BPC-5",
+    "name": "BPC-157 5mg",
+    "dosage": "5 mg",
+    "volume": "3 mL",
+    "category": "Recovery & Tissue",
+    "price": 30,
+    "image": "products/bpc5mg.webp",
+    "tags": [],
+    "images": [
+      "products/bpc5mg.webp",
+      "coas/bpc5mg.png"
+    ],
+    "researchGoals": [
+      "recovery",
+      "gut-health",
+      "tissue-repair"
+    ],
+    "experienceLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Gastric peptide analogue",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "WOLV-5-5",
+      "GHK-50"
+    ],
+    "description": "BPC-157 is a synthetic peptide derived from a protective protein found in gastric juice. Research has shown its potential to support tissue repair, muscle and tendon recovery, and gut health. Studies suggest BPC-157 may promote angiogenesis (new blood vessel growth), accelerate wound healing, and reduce inflammation, making it a widely studied compound in regenerative and recovery-focused research. Each vial is lab-tested for purity to ensure consistent results in experimental settings."
+  },
+  {
+    "id": "WOLV-5-5",
+    "name": "Wolverine 5mg:5mg",
+    "dosage": "5 mg + 5 mg",
+    "volume": "3 mL",
+    "category": "Recovery & Tissue",
+    "price": 45,
+    "image": "products/bpc_tb5mg.webp",
+    "images": [
+      "products/bpc_tb5mg.webp",
+      "coas/bpc_tb.png"
+    ],
+    "tags": [
+      "combo"
+    ],
+    "researchGoals": [
+      "recovery",
+      "performance",
+      "tissue-repair"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Synergistic recovery combo",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "BPC-5",
+      "Ipamorelin-5"
+    ],
+    "description": "The Wolverine Stack combines two of the most studied recovery peptides — BPC-157 and TB-500 — for enhanced research into healing, regeneration, and performance recovery. Studies suggest BPC-157 supports tissue repair, gut protection, and reduced inflammation, while TB-500 has been researched for promoting cell migration, new blood vessel growth, and accelerated recovery from injury. Together, they form a powerful model for exploring synergistic effects in regenerative and performance-based research."
+  },
+  {
+    "id": "GHK-50",
+    "name": "GHK-Cu 50mg",
+    "dosage": "50 mg",
+    "volume": "3 mL",
+    "category": "Longevity & Cellular",
+    "price": 30,
+    "image": "products/ghk50.webp",
+    "images": [
+      "products/ghk50.webp",
+      "coas/ghkcu50.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "anti-aging",
+      "longevity",
+      "tissue-repair"
+    ],
+    "experienceLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Copper peptide complex",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "BPC-5",
+      "NAD-500mg"
+    ],
+    "description": "GHK-Cu is a naturally occurring copper peptide that has been widely studied for its role in skin regeneration, hair growth, and wound healing. Research shows it may stimulate collagen and elastin production, promote angiogenesis (new blood vessel growth), and support anti-inflammatory and antioxidant activity. Because of these properties, GHK-Cu has become a key compound in studies on anti-aging, tissue repair, and cosmetic science. Each vial is lab-tested to ensure purity and reliability in research applications."
+  },
+  {
+    "id": "GLOW-70",
+    "name": "GLOW 70mg",
+    "dosage": "70 mg",
+    "volume": "3 mL",
+    "category": "Longevity & Cellular",
+    "price": 55,
+    "image": "products/klow80.webp",
+    "images": [
+      "products/klow80.webp",
+      "coas/glow70.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "skin-health",
+      "radiance",
+      "anti-aging"
+    ],
+    "experienceLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Peptide blend supporting collagen synthesis and cellular renewal",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "RET-20",
+      "NAD-500mg"
+    ],
+    "description": "GLOW 70mg is a specialized peptide formulation designed to support skin vitality, elasticity, and overall complexion health. Research suggests it may enhance collagen synthesis, promote hydration, and assist in reducing visible signs of aging through improved cellular repair and turnover. Its unique peptide blend is of interest in studies focusing on skin rejuvenation, anti-aging, and dermal restoration. Each vial is laboratory-tested for purity and reliability to ensure consistent research outcomes."
+  },
+  {
+    "id": "KLOW-80",
+    "name": "KLOW 80mg",
+    "dosage": "80 mg",
+    "volume": "3 mL",
+    "category": "Longevity & Cellular",
+    "price": 65,
+    "image": "products/klow80.webp",
+    "images": [
+      "products/klow80.webp",
+      "coas/klow80.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "skin-repair",
+      "firmness",
+      "cellular-rejuvenation"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Advanced peptide matrix enhancing dermal regeneration and elasticity",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "RET-30",
+      "NAD-500mg"
+    ],
+    "description": "KLOW 80mg is an advanced peptide complex developed for research into deep dermal repair, firmness, and elasticity. Studies indicate that its formulation may help support collagen remodeling, improve structural integrity of skin tissue, and enhance overall skin resilience. KLOW’s peptide profile is of interest in research focused on cellular rejuvenation, anti-aging, and regenerative skin science. Each vial is third-party lab-tested to confirm purity, stability, and consistency for research applications."
+  },
+  {
+    "id": "AOD-5",
+    "name": "AOD 9604 5mg",
+    "dosage": "5 mg",
+    "volume": "3 mL",
+    "category": "Metabolic",
+    "price": 30,
+    "image": "products/aod5.webp",
+    "images": [
+      "products/aod5.webp",
+      "coas/aod5.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "fat-metabolism",
+      "weight-management",
+      "anti-aging"
+    ],
+    "experienceLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Modified fragment of human growth hormone supporting lipolysis",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "MOTSC-10mg",
+      "RET-10"
+    ],
+    "description": "AOD 9604 is a peptide fragment of human growth hormone (HGH) that has been extensively studied for its potential effects on fat metabolism and weight management. Research indicates it may promote lipolysis (the breakdown of stored fat) while inhibiting lipogenesis (the formation of new fat), without affecting blood sugar or growth hormone levels. Due to these properties, AOD 9604 has become a key focus in studies exploring metabolic enhancement, body composition, and anti-aging pathways. Each vial is lab-tested for purity and consistency to ensure reliable research outcomes."
+  },
+  {
+    "id": "IGF1-1",
+    "name": "IGF-1 LR3 1mg",
+    "dosage": "1 mg",
+    "volume": "3 mL",
+    "category": "Performance & Vitality",
+    "price": 45,
+    "image": "products/igf1.webp",
+    "images": [
+      "products/igf1.webp",
+      "coas/igf1.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "muscle-growth",
+      "recovery",
+      "performance"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Long-acting insulin-like growth factor supporting cellular growth and repair",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "Ipamorelin-5",
+      "Tesa-10"
+    ],
+    "description": "IGF-1 LR3 (Insulin-Like Growth Factor-1 Long Arg3) is a synthetic, long-acting analog of IGF-1 designed to enhance cellular growth, protein synthesis, and recovery. Research has shown it may promote muscle hypertrophy, improve tissue repair, and support metabolic efficiency by increasing nutrient uptake into cells. Due to its extended half-life, IGF-1 LR3 remains active in circulation longer than native IGF-1, making it a valuable compound in studies on muscle development, recovery, and performance optimization. Each vial is lab-tested for purity and reliability to ensure consistent research outcomes."
+  },
+  {
+    "id": "EPITH-10",
+    "name": "Epithalon 10mg",
+    "dosage": "10 mg",
+    "volume": "3 mL",
+    "category": "Longevity & Cellular",
+    "price": 35,
+    "image": "products/epithalon10.webp",
+    "images": [
+      "products/epithalon10.webp",
+      "coas/epithalon10.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "longevity",
+      "anti-aging",
+      "telomere-support"
+    ],
+    "experienceLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Pineal peptide regulating telomerase activity and cellular longevity",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "GHK-50",
+      "NAD-500mg"
+    ],
+    "description": "Epithalon (Epitalon) is a synthetic tetrapeptide derived from the natural pineal gland peptide Epithalamin. Research has shown it may help regulate the production of telomerase, an enzyme responsible for maintaining telomere length, which is closely linked to cellular aging and longevity. Studies suggest Epithalon may support circadian rhythm regulation, oxidative stress reduction, and enhanced cellular repair. Because of these properties, it has become a key compound in longevity and anti-aging research. Each vial is lab-tested for purity and consistency to ensure reliable research outcomes."
+  },
+  {
+    "id": "Tesa-10",
+    "name": "Tesamorelin 10mg",
+    "dosage": "10 mg",
+    "volume": "3 mL",
+    "category": "GH Axis",
+    "price": 45,
+    "image": "products/tesamorelin10.webp",
+    "images": [
+      "products/tesamorelin10.webp",
+      "coas/tesa.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "metabolism",
+      "performance",
+      "anti-aging"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Growth hormone releasing hormone",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "Ipamorelin-5",
+      "NAD-500mg"
+    ],
+    "description": "Tesamorelin is a synthetic peptide and growth hormone–releasing hormone (GHRH) analogue studied for its ability to stimulate the natural release of growth hormone. Research has shown it may support fat metabolism, muscle development, and improved body composition, making it a valuable compound in studies of metabolic health and age-related decline. It has also been investigated for its role in lipid regulation and cognitive function. Each vial is lab-tested for purity, providing researchers with a consistent foundation for advanced studies."
+  },
+  {
+    "id": "Ipamorelin-5",
+    "name": "Ipamorelin 5mg",
+    "dosage": "5 mg",
+    "volume": "3 mL",
+    "category": "GH Axis",
+    "price": 35,
+    "image": "products/ipa5mg.webp",
+    "images": [
+      "products/ipa5mg.webp",
+      "coas/ipa5.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "recovery",
+      "performance",
+      "anti-aging"
+    ],
+    "experienceLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Growth hormone secretagogue",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "Tesa-10",
+      "WOLV-5-5"
+    ],
+    "description": "Ipamorelin is a selective growth hormone secretagogue (GHS) studied for its ability to trigger natural growth hormone release without significantly affecting cortisol or prolactin levels. Research highlights its potential in muscle growth, recovery, bone strength, and fat metabolism, making it a widely studied compound in performance and anti-aging research. Its targeted action and mild profile have made Ipamorelin one of the most explored peptides for safe, controlled growth hormone studies."
+  },
+  {
+    "id": "CJCIPA-10",
+    "name": "CJC-1295 + Ipa 10mg",
+    "dosage": "10 mg (5 mg + 5 mg)",
+    "volume": "3 mL",
+    "category": "GH Axis",
+    "price": 45,
+    "image": "products/cjc1295_ipa.webp",
+    "images": [
+      "products/cjc1295_ipa.webp",
+      "coas/cjc-1295.png"
+    ],
+    "tags": [
+      "combo"
+    ],
+    "researchGoals": [
+      "recovery",
+      "performance",
+      "anti-aging"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Synergistic growth hormone secretagogue and releasing hormone analog",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "Tesa-10",
+      "MOTSC-10mg"
+    ],
+    "description": "CJC-1295 + Ipamorelin combines two well-studied peptides that work synergistically to promote natural growth hormone release. CJC-1295, a GHRH analog, stimulates prolonged GH secretion, while Ipamorelin, a selective GHS, enhances this effect without elevating cortisol or prolactin levels. Research suggests the combination may support muscle growth, fat metabolism, recovery, and improved sleep quality. Due to its balanced and sustained GH profile, this stack is a cornerstone in studies on anti-aging, recovery, and performance optimization. Each vial is lab-tested for purity and reliability to ensure consistent research outcomes."
+  },
+  {
+    "id": "HCG-5000",
+    "name": "HCG 5000iu",
+    "dosage": "5000 iu",
+    "volume": "3 mL",
+    "category": "Endocrine Support",
+    "price": 35,
+    "image": "products/hcg5000.webp",
+    "tags": [],
+    "researchGoals": [
+      "longevity",
+      "performance"
+    ],
+    "experienceLevel": [
+      "advanced"
+    ],
+    "mechanism": "Gonadotropin hormone",
+    "confidenceRating": 4,
+    "synergiesWith": [],
+    "description": "Human Chorionic Gonadotropin (HCG) is a naturally occurring hormone widely studied for its role in reproductive health and hormone regulation. Research has shown it may stimulate the production of testosterone and support fertility, while also being investigated in studies related to weight management and endocrine system function. Each vial is lab-tested for purity, providing researchers with a reliable compound for exploring hormone-related pathways."
+  },
+  {
+    "id": "NAD-500mg",
+    "name": "NAD+ 500mg",
+    "dosage": "500 mg",
+    "volume": "10 mL",
+    "category": "Longevity & Cellular",
+    "price": 45,
+    "image": "products/nad500.webp",
+    "images": [
+      "products/nad500.webp",
+      "coas/nad.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "longevity",
+      "energy",
+      "anti-aging"
+    ],
+    "experienceLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Cellular coenzyme",
+    "confidenceRating": 5,
+    "synergiesWith": [
+      "MOTSC-10mg",
+      "RET-10"
+    ],
+    "description": "Nicotinamide Adenine Dinucleotide (NAD+) is a vital coenzyme found in every cell, essential for energy production and cellular repair. Research has shown NAD+ plays a central role in metabolism, mitochondrial function, and DNA repair, while also being studied for its potential in anti-aging, neuroprotection, and overall cellular health. Each vial is lab-tested to ensure purity and consistency, giving researchers a dependable compound for advanced studies in longevity and energy metabolism."
+  },
+  {
+    "id": "Cagri-5g",
+    "name": "Cargrilintide 5mg",
+    "dosage": "5 mg",
+    "volume": "3 mL",
+    "category": "Metabolic",
+    "price": 30,
+    "image": "products/cagri5.webp",
+    "images": [
+      "products/cagri5.webp",
+      "coas/cagri.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "weight-management",
+      "metabolism",
+      "appetite-control"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Amylin analogue",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "TIRZ-10",
+      "TIRZ-15"
+    ],
+    "description": "Cagrilintide is a long-acting analogue of the hormone amylin, studied for its potential in weight management and metabolic control. In clinical trials, once-weekly cagrilintide produced significant bodyweight reductions in people with obesity or overweight."
+  },
+  {
+    "id": "Semax-10mg",
+    "name": "Semax 10mg",
+    "dosage": "10 mg",
+    "volume": "3 mL",
+    "category": "Cognitive",
+    "price": 45,
+    "image": "products/semax10.webp",
+    "images": [
+      "products/semax10.webp",
+      "coas/semax.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "cognitive",
+      "focus"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Neuroprotective peptide",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "Selank-10mg",
+      "NAD-500mg"
+    ],
+    "description": "Semax is a synthetic peptide originally developed in Russia, widely studied for its neuroprotective and cognitive-enhancing properties. Research has shown it may support memory, focus, learning, and stress resilience by modulating the brain's dopaminergic and serotonergic systems. Studies also suggest potential benefits in neuroprotection, stroke recovery, and mood regulation, making Semax a valuable compound in neuroscience and cognitive research. Each vial is lab-tested for purity and reliability to ensure consistent results in experimental settings."
+  },
+  {
+    "id": "Selank-10mg",
+    "name": "Selank 10mg",
+    "dosage": "10 mg",
+    "volume": "3 mL",
+    "category": "Cognitive",
+    "price": 40,
+    "image": "products/selank10.webp",
+    "images": [
+      "products/selank10.webp",
+      "coas/selank.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "cognitive",
+      "focus"
+    ],
+    "experienceLevel": [
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Anxiolytic peptide",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "Semax-10mg"
+    ],
+    "description": "Selank is a synthetic peptide derived from the naturally occurring immunomodulatory peptide tuftsin. It has been studied for its potential to support anxiety reduction, mood stabilization, and cognitive function. Research suggests Selank may influence the GABAergic system, helping promote calmness without sedation, while also enhancing memory, focus, and stress resilience. Its dual action in both neurological and immune pathways makes it a widely explored compound in cognitive and mood research. Each vial is lab-tested for purity and consistency to ensure reliable results in experimental settings."
+  },
+  {
+    "id": "MOTSC-10mg",
+    "name": "Mots-C 10mg",
+    "dosage": "10 mg",
+    "volume": "3 mL",
+    "category": "Longevity & Cellular",
+    "price": 30,
+    "image": "products/motsc10.webp",
+    "images": [
+      "products/motsc10.webp",
+      "coas/motsc.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "energy",
+      "metabolism",
+      "performance"
+    ],
+    "experienceLevel": [
+      "beginner",
+      "intermediate",
+      "advanced"
+    ],
+    "mechanism": "Mitochondrial peptide",
+    "confidenceRating": 4,
+    "synergiesWith": [
+      "NAD-500mg",
+      "TIRZ-10"
+    ],
+    "description": "MOTS-c is a mitochondrial-derived peptide that has been studied for its role in energy regulation, metabolism, and cellular stress response. Research suggests MOTS-c may help improve insulin sensitivity, exercise endurance, and fat metabolism, while also protecting cells under metabolic or oxidative stress. Because of these effects, it has become a promising compound in studies of longevity, metabolic health, and athletic performance. Each vial is lab-tested for purity and consistency, providing researchers with a reliable foundation for advanced metabolic studies."
+  },
+  {
+    "id": "PT141-10mg",
+    "name": "PT-141 10mg",
+    "dosage": "10 mg",
+    "volume": "3 mL",
+    "category": "Performance & Vitality",
+    "price": 40,
+    "image": "products/pt141_10.webp",
+    "images": [
+      "products/pt141_10.webp",
+      "coas/pt141.png"
+    ],
+    "tags": [],
+    "researchGoals": [
+      "performance"
+    ],
+    "experienceLevel": [
+      "advanced"
+    ],
+    "mechanism": "Melanocortin receptor agonist",
+    "confidenceRating": 4,
+    "synergiesWith": [],
+    "description": "PT-141, also known as Bremelanotide, is a peptide studied for its effects on sexual function and arousal pathways. Unlike compounds that act on the vascular system, PT-141 works through the central nervous system, where research has shown it can activate melanocortin receptors involved in sexual desire and performance. Studies suggest potential benefits in both men and women, making PT-141 a key compound in research on libido, arousal, and neurological control of sexual function. Each vial is lab-tested for purity and consistency to ensure reliable results in controlled research settings."
+  }
+]
