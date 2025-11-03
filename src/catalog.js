@@ -1,10 +1,10 @@
 // catalog.js
 
-// ----- Config you can tweak -----
-const DISCOUNTS = {
+// ----- Default (fallback) config -----
+export const DEFAULT_DISCOUNTS = {
   1: 0.00, // 1 pack => no discount
   2: 0.15, // 2 pack => 15% off (requested)
-  3: 0.25, // 3 pack => 25% off (edit if desired)
+  3: 0.25, // 3 pack => 25% off
 };
 
 const PURCHASE_BLOCK = {
@@ -33,7 +33,6 @@ const FAQ_BLOCK = [
 const toNumber = (v) => {
   if (v == null) return null;
   if (typeof v === "number") return Number.isFinite(v) ? v : null;
-  // strip $ and commas, spaces
   const cleaned = String(v).replace(/[^0-9.\-]/g, "");
   const n = parseFloat(cleaned);
   return Number.isFinite(n) ? n : null;
@@ -44,12 +43,31 @@ const money = (n) =>
     ? Number((Math.round((n + Number.EPSILON) * 100) / 100).toFixed(2))
     : null;
 
-
 function roundToNearest5(num) {
   return Math.round(num / 5) * 5;
 }
 
-function buildOptions(basePriceRaw) {
+// ✅ NEW: pull discounts from global settings when provided
+function getDiscountsFromSettings(settings) {
+  // Expecting settings?.quantityDiscounts like: { "1": 0, "2": 0.15, "3": 0.25 }
+  const src = settings?.quantityDiscounts;
+  if (!src || typeof src !== "object") return DEFAULT_DISCOUNTS;
+
+  const out = {};
+  for (const [k, v] of Object.entries(src)) {
+    const qty = Number(k);
+    const disc = Number(v);
+    if (!Number.isFinite(qty) || qty <= 0) continue;
+    // clamp discount between 0 and 0.95 to avoid nonsensical values
+    if (!Number.isFinite(disc)) continue;
+    out[qty] = Math.max(0, Math.min(0.95, disc));
+  }
+
+  // If nothing valid, fall back
+  return Object.keys(out).length ? out : DEFAULT_DISCOUNTS;
+}
+
+function buildOptions(basePriceRaw, discounts) {
   const basePrice = toNumber(basePriceRaw);
   if (basePrice == null) return []; // keep key but empty if no base price
 
@@ -61,7 +79,7 @@ function buildOptions(basePriceRaw) {
 
   return tiers.map(({ id, qty, label, badge }) => {
     const compareAtRaw = basePrice * qty;
-    const discount = DISCOUNTS[qty] ?? 0;
+    const discount = discounts[qty] ?? 0;
     const priceRaw = compareAtRaw * (1 - discount);
 
     // ✅ Round to nearest 5 and remove decimals
@@ -80,7 +98,8 @@ function buildOptions(basePriceRaw) {
   });
 }
 
-function normalizeItem(item) {
+function normalizeItem(item, settings) {
+  const discounts = getDiscountsFromSettings(settings);
   const price = toNumber(item.price);
   return {
     id: item.id,
@@ -92,14 +111,15 @@ function normalizeItem(item) {
     image: item.image ?? null,
     images: item.images ?? [],
     tags: Array.isArray(item.tags) ? item.tags : [],
-    // IMPORTANT: Always rebuild from base price (ignore any raw item.options)
-    options: buildOptions(price),
+    // IMPORTANT: Always rebuild from base price using discounts (server or default)
+    options: buildOptions(price, discounts),
     purchase: { ...PURCHASE_BLOCK },
     faq: [...FAQ_BLOCK],
-    description: item.description
+    description: item.description,
   };
 }
 
-export function normalizeCatalog(raw) {
-  return raw.map(normalizeItem);
+// ✅ NEW: optional second arg `settings` (pass your global settings here)
+export function normalizeCatalog(raw, settings) {
+  return raw.map((item) => normalizeItem(item, settings));
 }

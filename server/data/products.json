@@ -771,7 +771,7 @@
   },
   {
     "id": "Cagri-5g",
-    "name": "Cargrilintide 5mg",
+    "name": "Cagrilintide 5mg",
     "dosage": "5 mg",
     "volume": "3 mL",
     "category": "Metabolic",
@@ -893,7 +893,7 @@
     "dosage": "10 mg",
     "volume": "3 mL",
     "category": "Performance & Vitality",
-    "price": 40,
+    "price": 30,
     "image": "products/pt141_10.webp",
     "images": [
       "products/pt141_10.webp",

@@ -1,13 +1,15 @@
 import React, { useMemo, useState, useRef, useLayoutEffect, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import { normalizeCatalog } from "../catalog.js";
+// ✅ NEW: pull global settings
+import { useSettings } from "../contexts/SettingsContext.jsx";
 
 const Placeholder = "/placeholder.svg";
 
 /** =========================
- *  GLOBAL PROMO CONFIG
+ *  GLOBAL PROMO CONFIG (fallbacks)
  *  ========================= */
-const PROMO = {
+const DEFAULT_PROMO = {
   enabled: true,
   type: "B2G1",
   isEligible: (p) => true,
@@ -60,6 +62,18 @@ function computeBonus(qty, promoType) {
  *  ========================= */
 export default function ProductPage() {
   const { id } = useParams();
+  // ✅ NEW: consume global settings
+  const { settings } = useSettings();
+  // derive promo from settings (fallback to defaults + keep your eligibility)
+  const promo = useMemo(() => {
+    const s = settings?.promo;
+    if (!s) return DEFAULT_PROMO;
+    return {
+      enabled: !!s.enabled,
+      type: s.type === "BOGO" ? "BOGO" : "B2G1",
+      isEligible: DEFAULT_PROMO.isEligible, // keep your existing rule
+    };
+  }, [settings]);
 
   // Fetch product from server
   const [serverProduct, setServerProduct] = useState(null);
@@ -90,9 +104,7 @@ export default function ProductPage() {
   // Normalize when product arrives
   const product = useMemo(() => {
     if (!serverProduct) return null;
-
-    console.log('server prdouct: ', serverProduct)
-    const [norm] = normalizeCatalog([serverProduct]);
+    const [norm] = normalizeCatalog([serverProduct], settings);
     return norm;
   }, [serverProduct]);
 
@@ -188,7 +200,9 @@ export default function ProductPage() {
 
   // ===== Page Rendering =====
   const purchaseHeadline = product.purchase?.headline || "How to Purchase";
-  const purchaseFacebook = product.purchase?.facebook || "https://facebook.com/gurneepeptides";
+  // ✅ NEW: prefer settings.messengerLink as the fallback
+  const purchaseFacebook =
+    product.purchase?.facebook || settings?.messengerLink || "https://facebook.com/gurneepeptides";
   const purchaseNote =
     product.purchase?.note ||
     "Message us on Facebook to purchase. If unavailable, email us directly at gurneepeptides@gmail.com";
@@ -247,9 +261,10 @@ export default function ProductPage() {
 
             <p className="hero-desc">{product.description}</p>
 
-            {PROMO.enabled && PROMO.type && PROMO.isEligible(product) && (
+            {/* ✅ NEW: promo from global settings (fallback safe) */}
+            {promo.enabled && promo.type && promo.isEligible(product) && (
               <div className="hero-promo" style={{ marginTop: 8, color: "var(--accent)" }}>
-                🎃 {PROMO_STRINGS[PROMO.type]}
+                🎃 {PROMO_STRINGS[promo.type]}
               </div>
             )}
 
@@ -266,12 +281,11 @@ export default function ProductPage() {
         <div className="options">
           {options.map((opt) => {
             const isSelected = selected === opt.id;
-            console.log('promo: ', opt)
             const qty = inferQty(opt);
 
             let bonus = 0;
-            if (PROMO.enabled && PROMO.type && PROMO.isEligible(product)) {
-              bonus = computeBonus(qty, PROMO.type);
+            if (promo.enabled && promo.type && promo.isEligible(product)) {
+              bonus = computeBonus(qty, promo.type);
             }
             const totalUnits = qty + bonus;
 
@@ -289,8 +303,7 @@ export default function ProductPage() {
               bonusText = `• Pay for ${qty} • Get ${totalUnits}`;
             }
 
-            const badge =
-              opt.badge || (bonus > 0 ? (PROMO.type === "B2G1" ? "B2G1 FREE" : "BOGO") : null);
+            const badge = opt.badge || (bonus > 0 ? (promo.type === "B2G1" ? "B2G1 FREE" : "BOGO") : null);
 
             return (
               <div

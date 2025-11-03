@@ -1,0 +1,14 @@
+{
+  "siteName": "Gurnee Peptides",
+  "topBarMessage": "🚚 Same-Day Shipping on orders confirmed before 3PM CT • For Research Use Only\n⚙️ Site is undergoing changes",
+  "messengerLink": "https://m.me/61580797282365",
+  "promo": {
+    "enabled": false,
+    "type": "B2G1"
+  },
+  "quantityDiscounts": {
+    "1": 0,
+    "2": 0.15,
+    "3": 0.20
+  }
+}

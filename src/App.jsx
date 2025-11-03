@@ -13,46 +13,46 @@ import PrivacyPolicyPage from "./pages/PrivacyPolicyPage";
 import TermsOfServicePage from "./pages/TermsOfServicePage";
 import AdminPage from "./pages/AdminPage";
 
+// ✅ NEW: pull settings from context
+import { useSettings } from "./contexts/SettingsContext.jsx";
+
 function TopBar() {
   const [message, setMessage] = React.useState("");
+  const { settings } = useSettings(); // <- prefer backend settings when available
 
   React.useEffect(() => {
-    const loadMessage = () => {
-      const savedMessage = localStorage.getItem("topBarMessage");
-      if (savedMessage) {
-        setMessage(savedMessage);
-      } else {
-        setMessage(
-          `🎃 Buy 2, Get 1 FREE — Halloween Sale Live! 
+    const DEFAULT_MSG = `🎃 Buy 2, Get 1 FREE — Halloween Sale Live! 
 🚚 Same-Day Shipping on orders confirmed before 3PM CT • For Research Use Only 
-⚙️ Site is undergoing changes`
-        );
+⚙️ Site is undergoing changes`;
+
+    const loadMessage = () => {
+      // 1) Prefer server-provided settings
+      const serverMsg = settings?.topBarMessage;
+      if (serverMsg && serverMsg.trim()) {
+        setMessage(serverMsg);
+        return;
       }
+      // 2) Fallback to localStorage (keeps old behavior working)
+      const savedMessage = localStorage.getItem("topBarMessage");
+      setMessage(savedMessage || DEFAULT_MSG);
     };
 
     loadMessage();
 
-    // Listen for storage changes (when admin updates)
+    // Keep listening for local updates to maintain current UX
     const handleStorageChange = (e) => {
-      if (e.key === "topBarMessage") {
-        loadMessage();
-      }
+      if (e.key === "topBarMessage") loadMessage();
     };
+    const handleCustomUpdate = () => loadMessage();
 
     window.addEventListener("storage", handleStorageChange);
-    
-    // Also listen for custom event for same-tab updates
-    const handleCustomUpdate = () => {
-      loadMessage();
-    };
-    
     window.addEventListener("topBarUpdate", handleCustomUpdate);
 
     return () => {
       window.removeEventListener("storage", handleStorageChange);
       window.removeEventListener("topBarUpdate", handleCustomUpdate);
     };
-  }, []);
+  }, [settings]); // <- re-run when settings change
 
   return (
     <div className="topbar" style={{ whiteSpace: "pre-line" }}>
@@ -60,8 +60,6 @@ function TopBar() {
     </div>
   );
 }
-
-
 
 function MessengerButton() {
   return (
@@ -73,10 +71,7 @@ function MessengerButton() {
       title="Message us on Messenger"
     >
       {/* Messenger SVG Icon */}
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 36 36"
-      >
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
         <path d="M18 0C8.06 0 0 7.56 0 16.89c0 5.32 2.71 10.05 6.93 13.08V36l6.35-3.48c1.53.42 3.17.65 4.87.65 9.94 0 18-7.56 18-16.89S27.94 0 18 0zm1.8 22.82l-4.84-5.15-9.58 5.15 10.47-11.16 4.91 5.15 9.52-5.15-10.48 11.16z"/>
       </svg>
     </a>

@@ -3,10 +3,13 @@ import { Link } from "react-router-dom";
 // ⬇️ remove static import and fetch from server
 // import products from "../products.js";
 import { normalizeCatalog } from "../catalog.js";
+import { useSettings } from "../contexts/SettingsContext.jsx";
 
 const Placeholder = "/placeholder.svg";
 
 export default function CatalogPage() {
+  const { settings } = useSettings();
+
   const [q, setQ] = useState("");
   const [activeCat, setActiveCat] = useState("All");
 
@@ -38,7 +41,7 @@ export default function CatalogPage() {
   }, []);
 
   // Normalize once server data arrives (e.g., image paths, safe defaults)
-  const normalized = useMemo(() => normalizeCatalog(serverProducts), [serverProducts]);
+  const normalized = useMemo(() => normalizeCatalog(serverProducts, settings), [serverProducts, settings]);
 
   // Build category list with counts (mobile-first)
   const categories = useMemo(() => {

@@ -17,7 +17,7 @@ export default function AdminPage() {
   const [saveStatus, setSaveStatus] = useState("");
 
   // ---------- Top bar ----------
-  const DEFAULT_TOPBAR = `🎃 Buy 2, Get 1 FREE — Halloween Sale Live!
+  const DEFAULT_TOPBAR = `
 🚚 Same-Day Shipping on orders confirmed before 3PM CT • For Research Use Only
 ⚙️ Site is undergoing changes`;
   const [topBarMessage, setTopBarMessage] = useState(DEFAULT_TOPBAR);
@@ -27,6 +27,12 @@ export default function AdminPage() {
   const [edited, setEdited] = useState({});          // { [id]: partialPatch }
   const [openMap, setOpenMap] = useState({});        // { [id]: boolean }
   const [query, setQuery] = useState("");
+
+  // ---------- Global Settings (Quantity Discounts) ----------
+  const [settings, setSettings] = useState(null); // full server settings blob
+  const [disc1, setDisc1] = useState("0");        // % as string for input
+  const [disc2, setDisc2] = useState("15");
+  const [disc3, setDisc3] = useState("25");
 
   // ===== Helpers: CSV <-> array =====
   const arrToCSV = useCallback(
@@ -98,6 +104,26 @@ export default function AdminPage() {
     const saved = localStorage.getItem("topBarMessage");
     setTopBarMessage(saved || DEFAULT_TOPBAR);
 
+    // settings (server)
+    try {
+      const sres = await fetch("/api/settings");
+      if (sres.ok) {
+        const s = await sres.json();
+        setSettings(s || {});
+        const qd = (s && s.quantityDiscounts) || {};
+        // numbers -> percent strings
+        setDisc1(String(Math.round(((qd["1"] ?? 0) * 100))));
+        setDisc2(String(Math.round(((qd["2"] ?? 0.15) * 100))));
+        setDisc3(String(Math.round(((qd["3"] ?? 0.25) * 100))));
+      } else {
+        setSettings(null);
+        setDisc1("0"); setDisc2("15"); setDisc3("25");
+      }
+    } catch {
+      setSettings(null);
+      setDisc1("0"); setDisc2("15"); setDisc3("25");
+    }
+
     // products (server)
     try {
       const res = await fetch("/api/products");
@@ -115,7 +141,7 @@ export default function AdminPage() {
     } catch {
       setProducts([]);
     }
-  }, []);
+  }, [DEFAULT_TOPBAR]);
 
   useEffect(() => {
     checkMe().then(loadData);
@@ -161,7 +187,39 @@ export default function AdminPage() {
       }
     }
 
-    // Build diffs
+    // ✅ Push global quantity discounts to server (admin)
+    if (authedEmail) {
+      // clamp and convert % -> decimal
+      const p1 = Math.max(0, Math.min(95, Number(disc1) || 0)) / 100;
+      const p2 = Math.max(0, Math.min(95, Number(disc2) || 0)) / 100;
+      const p3 = Math.max(0, Math.min(95, Number(disc3) || 0)) / 100;
+
+      const nextSettings = {
+        ...(settings || {}),
+        quantityDiscounts: { "1": p1, "2": p2, "3": p3 },
+      };
+
+      console.log('next: ', nextSettings)
+
+      try {
+        const sres = await fetch("/api/admin/settings", {
+          method: "POST",
+          credentials: "include",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(nextSettings),
+        });
+        if (!sres.ok) {
+          const err = await sres.json().catch(() => ({}));
+          console.warn("Settings save failed:", err.error || sres.status);
+        } else {
+          setSettings(nextSettings);
+        }
+      } catch (e) {
+        console.warn("Settings save error:", e);
+      }
+    }
+
+    // Build diffs for products
     const updates = [];
     for (const p of products) {
       const e = edited[p.id];
@@ -214,7 +272,7 @@ export default function AdminPage() {
     }
 
     if (updates.length === 0) {
-      setSaveStatus("✓ Nothing to update");
+      setSaveStatus("✓ Saved settings");
       setTimeout(() => setSaveStatus(""), 1000);
       return;
     }
@@ -239,7 +297,7 @@ export default function AdminPage() {
       setSaveStatus("Network error");
       setTimeout(() => setSaveStatus(""), 1000);
     }
-  }, [authedEmail, csvToArr, edited, loadData, products, topBarMessage]);
+  }, [authedEmail, csvToArr, disc1, disc2, disc3, edited, loadData, products, settings, topBarMessage]);
 
   const resetLocalEdits = useCallback(() => {
     if (!window.confirm("Clear all local edits (server will not change)?")) return;
@@ -310,6 +368,7 @@ export default function AdminPage() {
 
       {saveStatus && <div className="admin-status">{saveStatus}</div>}
 
+      {/* Top Bar */}
       <section className="card">
         <h2>Top Bar Message</h2>
         <textarea
@@ -321,6 +380,54 @@ export default function AdminPage() {
         />
       </section>
 
+      {/* Quantity Discounts */}
+      <section className="card">
+        <h2>Quantity Discounts</h2>
+        <p className="muted" style={{ marginTop: ".25rem" }}>
+          Enter percentages. These apply to 1-Pack, 2-Pack, and 3-Pack pricing across the site.
+        </p>
+
+        <div className="qd-grid">
+          <label className="field">
+            <span>1 Pack Discount (%)</span>
+            <input
+              type="number"
+              inputMode="numeric"
+              min="0"
+              max="95"
+              value={disc1}
+              onChange={(e) => setDisc1(e.target.value)}
+              placeholder="0"
+            />
+          </label>
+          <label className="field">
+            <span>2 Pack Discount (%)</span>
+            <input
+              type="number"
+              inputMode="numeric"
+              min="0"
+              max="95"
+              value={disc2}
+              onChange={(e) => setDisc2(e.target.value)}
+              placeholder="15"
+            />
+          </label>
+          <label className="field">
+            <span>3 Pack Discount (%)</span>
+            <input
+              type="number"
+              inputMode="numeric"
+              min="0"
+              max="95"
+              value={disc3}
+              onChange={(e) => setDisc3(e.target.value)}
+              placeholder="25"
+            />
+          </label>
+        </div>
+      </section>
+
+      {/* Products */}
       <section className="card">
         <div className="products-head">
           <h2>Products</h2>
@@ -682,8 +789,20 @@ const styles = `
 
   .muted { color: var(--sub); padding: .4rem; }
 
+  /* Quantity discounts grid */
+  .qd-grid {
+    display: grid;
+    gap: .75rem;
+    grid-template-columns: repeat(12, 1fr);
+    margin-top: .5rem;
+  }
+  .qd-grid .field { grid-column: span 4; }
+
   @media (max-width: 800px) {
     .row-body { grid-template-columns: repeat(6, 1fr); }
     .field { grid-column: span 6; }
+
+    .qd-grid { grid-template-columns: repeat(6, 1fr); }
+    .qd-grid .field { grid-column: span 6; }
   }
 `;

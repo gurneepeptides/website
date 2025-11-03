@@ -16,6 +16,20 @@ import { getAllProducts, getProductById, updatePrices } from './productsStore.js
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+
+
+const SETTINGS_PATH = path.join(__dirname, "data", "settings.json");
+
+async function readJSON(absPath) {
+  const raw = await fs.readFile(absPath, "utf8");
+  return JSON.parse(raw);
+}
+async function writeJSON(absPath, data) {
+  const tmp = absPath + ".tmp";
+  await fs.writeFile(tmp, JSON.stringify(data, null, 2), "utf8");
+  await fs.rename(tmp, absPath);
+}
+
 // Resolve a file relative to this server file
 function resolveDataPath(rel) {
   return path.join(__dirname, rel);
@@ -106,6 +120,91 @@ function requireAdmin(req, res, next) {
 
 // ===== Public API (optional) =====
 // Add any public endpoints here if you need them later
+// Public: everyone can read global settings
+app.get("/api/settings", async (req, res) => {
+  try {
+    const settings = await readJSON(SETTINGS_PATH);
+    // cache gently for 30s
+    res.setHeader("Cache-Control", "public, max-age=30");
+    console.log('settings: ', settings)
+    res.json(settings);
+  } catch (e) {
+    console.error("GET /api/settings failed:", e);
+    res.status(500).json({ error: "failed_to_load_settings" });
+  }
+});
+
+// Admin-only: update settings (merge patch)
+app.post("/api/admin/settings", requireAdmin, async (req, res) => {
+  try {
+    const patch = req.body || {};
+    const current = await readJSON(SETTINGS_PATH);
+
+    // helper: normalize number to decimal in [0, 0.95]
+    const toDecimal = (v) => {
+      let n = Number(v);
+      if (!Number.isFinite(n)) return null;
+      // allow percent inputs (e.g., 15 -> 0.15). If already decimal, keep as-is.
+      if (n > 1) n = n / 100;
+      // clamp
+      n = Math.max(0, Math.min(0.95, n));
+      // round to 4 dp to avoid floating drift
+      return Math.round(n * 10000) / 10000;
+    };
+
+    const next = { ...current };
+
+    // simple string props
+    if (patch.siteName !== undefined) next.siteName = String(patch.siteName);
+    if (patch.topBarMessage !== undefined) next.topBarMessage = String(patch.topBarMessage);
+    if (patch.messengerLink !== undefined) next.messengerLink = String(patch.messengerLink);
+
+    // promo (boolean + enum)
+    if (patch.promo !== undefined) {
+      const p = patch.promo || {};
+      next.promo = {
+        enabled: typeof p.enabled === "boolean" ? p.enabled : !!current.promo?.enabled,
+        type:
+          p.type === "B2G1" || p.type === "BOGO"
+            ? p.type
+            : current.promo?.type || "B2G1",
+      };
+    }
+
+    // quantityDiscounts: merge patch -> current
+    if (patch.quantityDiscounts !== undefined) {
+      const incoming = patch.quantityDiscounts || {};
+      const prev = current.quantityDiscounts || {};
+      const qd = {
+        1: prev["1"] ?? prev[1] ?? 0,
+        2: prev["2"] ?? prev[2] ?? 0,
+        3: prev["3"] ?? prev[3] ?? 0,
+      };
+
+      // apply incoming values if present (accept numeric or string)
+      if (incoming["1"] !== undefined || incoming[1] !== undefined) {
+        const d = toDecimal(incoming["1"] ?? incoming[1]);
+        if (d !== null) qd[1] = d;
+      }
+      if (incoming["2"] !== undefined || incoming[2] !== undefined) {
+        const d = toDecimal(incoming["2"] ?? incoming[2]);
+        if (d !== null) qd[2] = d;
+      }
+      if (incoming["3"] !== undefined || incoming[3] !== undefined) {
+        const d = toDecimal(incoming["3"] ?? incoming[3]);
+        if (d !== null) qd[3] = d;
+      }
+
+      next.quantityDiscounts = qd;
+    }
+
+    await writeJSON(SETTINGS_PATH, next);
+    res.json({ ok: true, settings: next });
+  } catch (e) {
+    console.error("POST /api/admin/settings failed:", e);
+    res.status(500).json({ error: "failed_to_save_settings" });
+  }
+});
 
 // ===== Admin auth endpoints (server-only auth; SPA posts from /admin) =====
 app.post('/api/admin/login', async (req, res) => {
