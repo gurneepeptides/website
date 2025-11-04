@@ -1,7 +1,16 @@
-# netlify.toml
 [build]
   command = "npm run build"
   publish = "dist"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+  included_files = ["server/data/**"]   # <— add this line
+
+[[redirects]]
+  from = "/api/*"
+  to = "/.netlify/functions/server/:splat"
+  status = 200
 
 [[redirects]]
   from = "/*"
